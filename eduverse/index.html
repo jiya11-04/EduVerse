@@ -43,12 +43,8 @@
       <button type="submit">Login</button>
     </div>
 
-    <p class="signup">No account? <a href="#">Signup</a></p>
-
-    <div class="social">
-      <div class="go"><i class="fab fa-google"></i> Google</div>
-      <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
-    </div>
+    
+    
   </form>
 
   <script>
@@ -58,11 +54,11 @@
       const studentField = document.getElementById('student-id-field');
 
       if (role === 'teacher') {
-        greeting.textContent = 'Hello Teacher! Please login.';
+        greeting.textContent = 'Enter Teacher Id';
         teacherField.classList.remove('hidden');
         studentField.classList.add('hidden');
       } else {
-        greeting.textContent = 'Hello Student! Please login.';
+        greeting.textContent = 'Enter Admission Number ';
         studentField.classList.remove('hidden');
         teacherField.classList.add('hidden');
       }
