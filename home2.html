@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduVerse - Futuristic College Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --text-light: #fff;
+      --text-dark: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-theme {
+      background: radial-gradient(
+        circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%
+      );
+      color: var(--text-light);
+    }
+
+    body.light-theme {
+  --bg-color: #e6e6e6ab;
+  --card-bg: rgba(255, 255, 255, 0.504);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --card-shadow: rgba(0, 0, 0, 0.15);
+  --text-color: #1f1f1f;
+  --icon-glow: #333333;
+  --nav-bg: #d0d0d0;
+  --nav-text: #000;
+}
+
+
+    body.light-theme {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+    }
+
+    .nav-right i,
+    .theme-toggle i {
+      margin-left: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .dashboard {
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .futuristic-tile {
+      position: relative;
+      height: 180px;
+      background: var(--glass-dark);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.4s ease;
+    }
+
+    .tile-icon {
+      font-size: 48px;
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 16px;
+      text-shadow: 0 0 5px var(--primary);
+    }
+
+    .calendar-icon {
+      position: absolute;
+      font-size: 100px;
+      color: rgba(0, 255, 255, 0.1);
+      z-index: 1;
+      opacity: 0;
+      transform: rotate(0deg);
+      transition: opacity 0.5s ease;
+    }
+
+    .scanner-line {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+      top: 0;
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0%; }
+      50% { top: 90%; }
+      100% { top: 0%; }
+    }
+
+    .active .calendar-icon {
+      opacity: 1;
+      animation: rotateCalendar 2s linear infinite;
+    }
+
+    .active .icon-wrapper {
+      transform: translateY(-10px) scale(1.1);
+    }
+
+    @keyframes rotateCalendar {
+      0% { transform: rotate(0deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1.2); }
+    }
+
+    .chatbot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: #000;
+      padding: 12px 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Light theme overrides */
+    body.light-theme .futuristic-tile {
+      background: var(--glass-light);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(200, 200, 255, 0.2);
+    }
+
+    body.light-theme .tile-icon,
+    body.light-theme .nav-right i,
+    body.light-theme .logo {
+      color: #003366;
+      text-shadow: none;
+    }
+
+    body.light-theme .scanner-line {
+      background: #003366;
+      box-shadow: 0 0 5px #003366;
+    }
+
+    body.light-theme .label {
+      color: #003366;
+      text-shadow: none;
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <nav class="navbar">
+    <div class="logo">EduVerse</div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+      </button>
+      <i class="fas fa-info-circle"></i>
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </nav>
+
+  <div class="dashboard">
+    <!-- Tile: Attendance -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+     
+      <i class="fas fa-calendar-alt calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-user-check tile-icon"></i>
+        <div class="label">Attendance</div>
+      </div>
+    </div>
+
+    <!-- Tile: Timetable -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+     
+        <i class="fas fa-clipboard-list calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-table tile-icon"></i>
+        <div class="label">Timetable</div>
+      </div>
+    </div>
+
+    <!-- Tile: NEFT -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      
+        <i class="fas fa-university calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-file-invoice-dollar tile-icon"></i>
+        <div class="label">NEFT Form</div>
+      </div>
+    </div>
+
+    <!-- Tile: Examination -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+    
+        <i class="fas fa-file-signature calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-pen-alt tile-icon"></i>
+        <div class="label">Examination</div>
+      </div>
+    </div>
+
+    <!-- Tile: Report Card -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      
+        <i class="fas fa-graduation-cap calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-clipboard-list tile-icon"></i>
+        <div class="label">Report Card</div>
+      </div>
+    </div>
+
+    <!-- Tile: Query Box -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      
+        <i class="fas fa-server calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-comments tile-icon"></i>
+        <div class="label">Query Box</div>
+      </div>
+    </div>
+
+    <!-- Tile: Food Court -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      
+        <i class="fas fa-hamburger calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-utensils tile-icon"></i>
+        <div class="label">Food Court</div>
+      </div>
+    </div>
+
+    <!-- Tile: College Essentials -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+     
+        <i class="fas fa-pencil-ruler calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-box-open tile-icon"></i>
+        <div class="label">Stationary</div>
+      </div>
+    </div>
+
+    <!-- Tile: Societies -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+     
+        <i class="fas fa-people-arrows calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-users tile-icon"></i>
+        <div class="label">Societies</div>
+      </div>
+    </div>
+
+    <!-- Tile: Medical -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      
+        <i class="fas fa-first-aid calendar-icon"></i>
+
+      <div class="icon-wrapper">
+        <i class="fas fa-notes-medical tile-icon"></i>
+        <div class="label">Medical</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot">
+    <i class="fas fa-robot"></i>
+  </div>
+
+  <script>
+    function triggerAnimation(container) {
+      container.classList.toggle('active');
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.contains("dark-theme");
+      body.classList.remove("dark-theme", "light-theme");
+      body.classList.add(isDark ? "light-theme" : "dark-theme");
+      localStorage.setItem("eduverse-theme", isDark ? "light-theme" : "dark-theme");
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("eduverse-theme");
+      if (saved) {
+        document.body.classList.remove("dark-theme", "light-theme");
+        document.body.classList.add(saved);
+      }
+    });
+  </script>
+</body>
+</html>
