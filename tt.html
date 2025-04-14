@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Futuristic Timetable</title>
+  <!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+<h1 style="text-align:center; font-family: 'Orbitron', sans-serif; font-size: 36px; color: #00fff7; text-shadow: 0 0 8px #00fff7;">
+   Schedule
+</h1>
+
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --text-light: #fff;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      font-family: 'Orbitron', sans-serif;
+      color: #00fff7;
+      padding: 20px;
+      
+    
+    
+      background: radial-gradient(
+        circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%
+      );
+      color: var(--text-light);
+    
+    }
+
+    
+
+    .timetable {
+      width: 95%;
+      margin: auto;
+      border-collapse: collapse;
+    }
+
+    
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #00fff7;
+    }
+
+    th {
+      font-size: 20px;
+    }
+
+    .row {
+      transform: translateX(-100%);
+      opacity: 0;
+      animation: slideIn 1s forwards;
+    }
+
+    .row:nth-child(2) { animation-delay: 0.3s; }
+    .row:nth-child(3) { animation-delay: 0.6s; }
+    .row:nth-child(4) { animation-delay: 0.9s; }
+    .row:nth-child(5) { animation-delay: 1.2s; }
+    .row:nth-child(6) { animation-delay: 1.5s; }
+    .row:nth-child(7) { animation-delay: 1.8s; }
+    .row:nth-child(8) { animation-delay: 2.1s; }
+    .row:nth-child(9) { animation-delay: 2.4s; }
+    .row:nth-child(10) { animation-delay: 2.7s; }
+
+    @keyframes slideIn {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    button {
+      background-color: #00fff7;
+      color: black;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00b7a8;
+    }
+
+    /* Day text colors */
+    .monday { color: #ff5e5e; }     /* red */
+    .tuesday { color: #ffaa00; }    /* orange */
+    .wednesday { color: #ffe600; }  /* yellow */
+    .thursday { color: #85ff00; }   /* green */
+    .friday { color: #00e0ff; }     /* blue */
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align:center;"></h1>
+
+  <table class="timetable">
+    <tr>
+      <th>Day</th>
+      <th>Time</th>
+      <th>Subject</th>
+      <th>Faculty</th>
+      <th>Map</th>
+    </tr>
+
+    <tr class="row">
+      <td class="monday">Monday</td>
+      <td>9:00 - 10:00</td>
+      <td>Artificial Intelligence</td>
+      <td>Dr. Sharma</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+    <tr class="row">
+      <td class="monday">Monday</td>
+      <td>10:00 - 11:00</td>
+      <td>Operating Systems</td>
+      <td>Prof. Nair</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+
+    <tr class="row">
+      <td class="tuesday">Tuesday</td>
+      <td>9:00 - 10:00</td>
+      <td>Machine Learning</td>
+      <td>Prof. Rao</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+    <tr class="row">
+      <td class="tuesday">Tuesday</td>
+      <td>10:00 - 11:00</td>
+      <td>Data Structures</td>
+      <td>Ms. Singh</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+
+    <tr class="row">
+      <td class="wednesday">Wednesday</td>
+      <td>11:00 - 12:00</td>
+      <td>Database Systems</td>
+      <td>Dr. Kaur</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+    <tr class="row">
+      <td class="wednesday">Wednesday</td>
+      <td>12:00 - 1:00</td>
+      <td>Software Engg</td>
+      <td>Prof. Verma</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+
+    <tr class="row">
+      <td class="thursday">Thursday</td>
+      <td>9:00 - 10:00</td>
+      <td>Computer Networks</td>
+      <td>Mr. Khanna</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+    <tr class="row">
+      <td class="thursday">Thursday</td>
+      <td>10:00 - 11:00</td>
+      <td>Web Technologies</td>
+      <td>Dr. Desai</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+
+    <tr class="row">
+      <td class="friday">Friday</td>
+      <td>9:00 - 10:00</td>
+      <td>IoT & Embedded</td>
+      <td>Dr. Reddy</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+    <tr class="row">
+      <td class="friday">Friday</td>
+      <td>10:00 - 11:00</td>
+      <td>Cyber Security</td>
+      <td>Prof. Iqbal</td>
+      <td><button onclick="openMap()">Map</button></td>
+    </tr>
+  </table>
+
+  <script>
+    function openMap() {
+      window.open('https://maps.google.com', '_blank');
+    }
+  </script>
+
+</body>
+</html>
