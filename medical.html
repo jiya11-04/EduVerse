@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Futuristic Medical Submission</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .medical-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      width: 350px;
+      text-align: center;
+      position: relative;
+    }
+
+    .robot-icon {
+      width: 90px;
+      height: 50%;
+      margin-bottom: 15px;
+      animation: float 3s ease-in-out infinite;
+      font-size: 60px; /* Increased from default to make it bigger */
+  
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .medical-container h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #00ffff;
+      text-shadow: 0 0 5px #00ffff;
+    }
+
+    .medical-container input[type="text"],
+    .medical-container input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      background-color: transparent;
+      color: white;
+      border-radius: 10px;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    .medical-container input[type="text"]:focus,
+    .medical-container input[type="file"]:focus {
+      border-color: #00ffff;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      display: none;
+      box-shadow: 0 0 5px rgba(0,255,255,0.5);
+    }
+
+    .pending {
+      background-color: rgba(255, 255, 0, 0.1);
+      border: 1px solid yellow;
+      color: yellow;
+    }
+
+    .approved {
+      background-color: rgba(0, 255, 0, 0.1);
+      border: 1px solid lime;
+      color: lime;
+    }
+
+    .rejected {
+      background-color: rgba(255, 0, 0, 0.1);
+      border: 1px solid red;
+      color: red;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00ffff;
+      color: #000;
+      box-shadow: 0 0 10px #00ffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="medical-container">
+    <!-- Replace with your robot nurse GIF or PNG -->
+    
+        <i class="fas fa-user-nurse robot-icon"></i>
+    
+    <h2>Medical Submission Portal</h2>
+
+   
+    <input type="text" placeholder="Student Name" required>
+    <input type="text" placeholder="Admission Number" required>
+    
+    <label style="float: left; font-size: 14px; margin-top: 10px;">Medical PDF</label>
+    <input type="file" accept="application/pdf">
+
+    <label style="float: left; font-size: 14px; margin-top: 10px;">Doctor Prescription PDF</label>
+    <input type="file" accept="application/pdf">
+
+    <!-- Change class here to 'approved' or 'rejected' as needed -->
+    <div class="status pending">Status: Pending</div>
+
+    <button type="submit">Submit</button>
+  </div>
+  <script>
+    const submitBtn = document.querySelector("button[type='submit']");
+    const statusDiv = document.querySelector(".status");
+  
+    submitBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevents actual form submission
+  
+      // Randomly simulate a status
+      const statuses = ['pending', 'approved', 'rejected'];
+      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  
+      statusDiv.className = `status ${randomStatus}`;
+      statusDiv.textContent = `Status: ${randomStatus.charAt(0).toUpperCase() + randomStatus.slice(1)}`;
+      statusDiv.style.display = 'inline-block';
+    });
+  </script>
+  
+</body>
+</html>
