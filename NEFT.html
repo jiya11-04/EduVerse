@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduVerse NEFT Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --text-light: #fff;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(
+        circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%
+      );
+      color: var(--text-light);
+      padding: 40px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .form-container {
+      background: var(--glass-dark);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+      color: var(--text-light);
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 28px;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      margin-bottom: 30px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+      color: var(--primary);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 10px;
+      outline: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .submit-btn {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--primary);
+      color: #000;
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .file-icon {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      font-size: 30px;
+      color: var(--primary);
+      opacity: 0;
+      transition: transform 1s ease-out, opacity 0.3s;
+      z-index: 999;
+    }
+
+    
+
+
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      display: none;
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <div class="form-title">NEFT Form</div>
+
+    <form class="form-grid" id="neftForm">
+      <div>
+        <label>Select Module</label>
+        <select>
+          <option>Academic</option>
+          <option>Hostel</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Type of Transfer</label>
+        <select>
+          <option>Bank Transfer</option>
+          <option>IMPS</option>
+          <option>RTGS</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Admission No.</label>
+        <input type="text" placeholder="e.g. 24SBBS1040021">
+      </div>
+
+      <div>
+        <label>Student Name</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>Father Name</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>Submission Date</label>
+        <input type="date" value="2025-04-15">
+      </div>
+
+      <div>
+        <label>Date of Payment</label>
+        <input type="date">
+      </div>
+
+      <div>
+        <label>Amount of NEFT/RTGS/IMPS</label>
+        <input type="number" placeholder="Amount in ₹">
+      </div>
+
+      <div>
+        <label>Type of Fee</label>
+        <input type="text" placeholder="e.g. Tuition, Hostel">
+      </div>
+
+      <div>
+        <label>UTR No./Transaction No.</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>Sender Mobile No.</label>
+        <input type="tel" placeholder="+91">
+      </div>
+
+      <div>
+        <label>Sender Bank Name</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>IFSC Code of Sender Bank</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>Account Holder Name</label>
+        <input type="text">
+      </div>
+
+      <div>
+        <label>Bank Address</label>
+        <input type="text">
+      </div>
+
+      <div style="grid-column: span 2;">
+        <label>Remark</label>
+        <textarea rows="3" placeholder="Any remarks..."></textarea>
+      </div>
+
+      <div class="submit-btn" style="grid-column: span 2;">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <div class="status" id="statusMessage">✅ Submitted Successfully</div>
+    <div class="file-icon" id="fileIcon">📄</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('neftForm');
+    const fileIcon = document.getElementById('fileIcon');
+    const statusMessage = document.getElementById('statusMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      fileIcon.classList.remove('animate-file'); // reset animation
+      void fileIcon.offsetWidth; // reflow
+      fileIcon.classList.add('animate-file');
+
+      statusMessage.style.display = 'none';
+
+      setTimeout(() => {
+        statusMessage.style.display = 'block';
+      }, 1300);
+    });
+  </script>
+</body>
+</html>
