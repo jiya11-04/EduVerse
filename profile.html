@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Profile - EduVerse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --text-light: #fff;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      font-family: 'Orbitron', sans-serif;
+      padding: 20px;
+      background: radial-gradient(
+        circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%
+      );
+      color: var(--text-light);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <div class="max-w-6xl mx-auto p-6">
+    <header class="flex justify-between items-center mb-6">
+      <h1 class="text-4xl font-semibold text-cyan-300">EduVerse</h1>
+      <div class="flex items-center gap-4">
+        <span class="text-lg">John Doe</span>
+        <img src="profile-pic.webp" class="rounded-full w-12 h-12 border-2 border-cyan-300" alt="Profile" />
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Sidebar -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 col-span-1">
+        <div class="flex flex-col items-center">
+          <img src="profile-pic.webp" class="rounded-full border-4 border-cyan-300" alt="Student" />
+          <h2 class="text-xl mt-4">John Doe</h2>
+          <p class="text-sm text-cyan-200">B.Tech CSE | 2024–25</p>
+          <div class="bg-cyan-900 text-center text-white rounded-lg px-4 py-2 my-3 text-sm">
+            24071040007
+          </div>
+        </div>
+        <ul class="mt-4 space-y-2">
+          <li class="text-white hover:text-cyan-300 cursor-pointer">📄 Admit Card</li>
+          <li class="text-white hover:text-cyan-300 cursor-pointer">🤝 Alumni Connect</li>
+          <li class="text-white hover:text-cyan-300 cursor-pointer">📅 Attendance</li>
+          <li class="text-white hover:text-cyan-300 cursor-pointer">📢 Central Communication</li>
+          <li class="text-white hover:text-cyan-300 cursor-pointer">📜 Circular</li>
+          <li class="text-white hover:text-cyan-300 cursor-pointer">🏫 College Info</li>
+        </ul>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="md:col-span-2 space-y-6">
+        <!-- Personal Details -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+          <h3 class="text-2xl text-cyan-300 mb-4">Personal Details</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <p><strong>Father/Guardian:</strong> Richard Doe</p>
+            <p><strong>Email:</strong> johndoe@example.com</p>
+            <p><strong>DOB:</strong> 01/01/2005</p>
+            <p><strong>Gender:</strong> Male</p>
+            <p><strong>Nationality:</strong> Indian</p>
+            <p><strong>Religion:</strong> None</p>
+            <p><strong>Emergency Contact:</strong> 9876543210</p>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+          <h3 class="text-2xl text-cyan-300 mb-4">Address</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <p><strong>Present Address:</strong> 123 Skyview Lane</p>
+            <p><strong>Permanent Address:</strong> 123 Skyview Lane</p>
+            <p><strong>City:</strong> Mumbai</p>
+            <p><strong>State:</strong> Maharashtra</p>
+            <p><strong>Zip Code:</strong> 400001</p>
+          </div>
+        </div>
+
+        <!-- University Info -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+          <h3 class="text-2xl text-cyan-300 mb-4">University Information</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <p><strong>Admission Number:</strong> 24BBS1040021</p>
+            <p><strong>Application Number:</strong> UG2347890</p>
+            <p><strong>Fee Category:</strong> General</p>
+            <p><strong>Date of Admission:</strong> 01-08-2024</p>
+            <p><strong>User ID:</strong> 24BBS1040021</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
