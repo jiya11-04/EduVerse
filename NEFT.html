@@ -145,22 +145,22 @@
   <div class="form-container">
     <div class="form-title">NEFT Form</div>
 
-    <form class="form-grid" id="neftForm">
-      <div><label>Module</label><select name="module"><option selected>Academic</option><option>Hostel</option><option>Other</option></select></div>
-      <div><label>Loan Type</label><select name="loanType"><option selected>Bank Transfer</option><option>IMPS</option><option>RTGS</option></select></div>
-      <div><label>Amount</label><input type="number" name="amount" value="5000"></div>
-      <div><label>Submission Date</label><input type="date" name="submissionDate" value="2025-04-16"></div>
-      <div><label>Payment Date</label><input type="date" name="paymentDate" value="2025-04-17"></div>
-      <div><label>Type of Fee</label><input type="text" name="typeOfFee" value="Tuition Fee"></div>
-      <div><label>Transaction No.</label><input type="text" name="transactionNo" value="TX123456789"></div>
-      <div><label>Updated Transaction No.</label><input type="text" name="updatedTransactionNo" value="TX987654321"></div>
-      <div><label>Sender Mob No.</label><input type="tel" name="senderMob" value="9876543210"></div>
-      <div><label>Sender Bank</label><input type="text" name="senderBank" value="ICICI Bank"></div>
-      <div><label>Account Holder</label><input type="text" name="accountHolder" value="John Doe"></div>
-      <div><label>IFSC Code</label><input type="text" name="ifscCode" value="ICIC0001234"></div>
-      <div><label>Bank Address</label><input type="text" name="bankAddress" value="Mumbai, Maharashtra"></div>
-      <div><label>Remark</label><input type="text" name="remark" value="Fee Payment for 2024-25"></div>
-      <div><label>Reconciled</label><input type="text" name="reconciled" value="Yes"></div>
+    <form class="form-grid" id="neftForm" autocomplete="off">
+      <div><label>Module</label><select name="module"><option selected disabled>-- Select --</option><option>Academic</option><option>Hostel</option><option>Other</option></select></div>
+      <div><label>Loan Type</label><select name="loanType"><option selected disabled>-- Select --</option><option>Bank Transfer</option><option>IMPS</option><option>RTGS</option></select></div>
+      <div><label>Amount</label><input type="number" name="amount"></div>
+      <div><label>Submission Date</label><input type="date" name="submissionDate" id="submissionDate"></div>
+      <div><label>Payment Date</label><input type="date" name="paymentDate" id="paymentDate"></div>
+      <div><label>Type of Fee</label><input type="text" name="typeOfFee"></div>
+      <div><label>Transaction No.</label><input type="text" name="transactionNo"></div>
+      <div><label>Updated Transaction No.</label><input type="text" name="updatedTransactionNo"></div>
+      <div><label>Sender Mob No.</label><input type="tel" name="senderMob"></div>
+      <div><label>Sender Bank</label><input type="text" name="senderBank"></div>
+      <div><label>Account Holder</label><input type="text" name="accountHolder"></div>
+      <div><label>IFSC Code</label><input type="text" name="ifscCode"></div>
+      <div><label>Bank Address</label><input type="text" name="bankAddress"></div>
+      <div><label>Remark</label><input type="text" name="remark"></div>
+      <div><label>Reconciled</label><input type="text" name="reconciled"></div>
 
       <div class="submit-btn"><button type="submit">Submit</button></div>
     </form>
@@ -190,31 +190,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Academic</td>
-            <td>Bank Transfer</td>
-            <td>5000</td>
-            <td>2025-04-16</td>
-            <td>2025-04-17</td>
-            <td>Tuition Fee</td>
-            <td>TX123456789</td>
-            <td>TX987654321</td>
-            <td>9876543210</td>
-            <td>ICICI Bank</td>
-            <td>John Doe</td>
-            <td>ICIC0001234</td>
-            <td>Mumbai, Maharashtra</td>
-            <td>Fee Payment for 2024-25</td>
-            <td>Yes</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <script>
-    let srNo = 2;
+    let srNo = 1;
     const form = document.getElementById('neftForm');
     const tableBody = document.querySelector("#dataTable tbody");
     const statusMessage = document.getElementById('statusMessage');
@@ -235,6 +217,11 @@
         statusMessage.style.display = 'none';
       }, 2500);
     });
+
+    // Set today's date for date inputs
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("submissionDate").value = today;
+    document.getElementById("paymentDate").value = today;
   </script>
 
 </body>
