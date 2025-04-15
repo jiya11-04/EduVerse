@@ -91,8 +91,9 @@ animate();
 // --- Classroom Locations ---
 const classroomMarkers = {
     "AI": new THREE.Vector3(-1.5, 5, -5),
-    "OS": new THREE.Vector3(2, 5, -3),
-    "ML": new THREE.Vector3(-2, 0.1, -3),
+     "OS": new THREE.Vector3(-3.5, 0.6, -8.5),
+
+    "ML": new THREE.Vector3(-1, 0.6, -11),
     "DS": new THREE.Vector3(3, 0.1, 0),
     "DB": new THREE.Vector3(-3, 0.1, 0),
     "SE": new THREE.Vector3(1, 0.1, 2),
@@ -102,41 +103,48 @@ const classroomMarkers = {
     "CYBER": new THREE.Vector3(0, 0.1, 6),
   };
   
-  // 🔎 DEBUG SPHERES TO VISUALLY CHECK POSITIONS (remove once done)
-  Object.entries(classroomMarkers).forEach(([label, pos]) => {
-    const marker = new THREE.Mesh(
-      new THREE.SphereGeometry(0.1),
-      new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    );
-    marker.position.copy(pos);
-    scene.add(marker);
-  });
-  
+  // --- Reusable Marker and Ring ---
+const marker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.1),
+  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+);
+marker.visible = false;
+scene.add(marker);
+
+let ring = null;
 
 // --- Highlight Effect ---
 function highlightClassroom(position) {
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.4, 0.5, 32),
-      new THREE.MeshBasicMaterial({
-        color: 0x00fff7,
-        transparent: true,
-        opacity: 0.6,
-        side: THREE.DoubleSide,
-      })
-    );
-    ring.rotation.x = -Math.PI / 2;
-    ring.position.copy(position);
-    scene.add(ring);
-  
-    // Optional: pulsating animation (can remove this if static ring preferred)
-    function pulse() {
-      ring.rotation.z += 0.01;
-      ring.scale.setScalar(1 + 0.1 * Math.sin(Date.now() * 0.005));
-      requestAnimationFrame(pulse);
-    }
-    pulse();
+  // Move the red dot
+  marker.position.copy(position);
+  marker.visible = true;
+
+  // Remove existing ring if present
+  if (ring) scene.remove(ring);
+
+  // Add new ring
+  ring = new THREE.Mesh(
+    new THREE.RingGeometry(0.4, 0.5, 32),
+    new THREE.MeshBasicMaterial({
+      color: 0x00fff7,
+      transparent: true,
+      opacity: 0.6,
+      side: THREE.DoubleSide,
+    })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.copy(position);
+  scene.add(ring);
+
+  // Optional: pulsating animation
+  function pulse() {
+    if (!ring) return;
+    ring.rotation.z += 0.01;
+    ring.scale.setScalar(1 + 0.1 * Math.sin(Date.now() * 0.005));
+    requestAnimationFrame(pulse);
   }
-  
+  pulse();
+}
 
 // --- Main Function to Focus Classroom ---
 function focusOnClassroom(roomId) {
