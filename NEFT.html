@@ -24,7 +24,6 @@
       );
       color: var(--text-light);
       padding: 40px;
-      position: relative;
       overflow-x: hidden;
     }
 
@@ -37,7 +36,6 @@
       padding: 30px;
       max-width: 1000px;
       margin: auto;
-      color: var(--text-light);
     }
 
     .form-title {
@@ -81,11 +79,6 @@
       resize: none;
     }
 
-    .submit-btn {
-      text-align: center;
-      margin-top: 30px;
-    }
-
     button {
       padding: 12px 30px;
       background-color: transparent;
@@ -103,19 +96,11 @@
       box-shadow: 0 0 15px var(--primary);
     }
 
-    .file-icon {
-      position: absolute;
-      top: 75%;
-      left: 50%;
-      font-size: 30px;
-      color: var(--primary);
-      opacity: 0;
-      transition: transform 1s ease-out, opacity 0.3s;
-      z-index: 999;
+    .submit-btn {
+      text-align: center;
+      margin-top: 30px;
+      grid-column: span 2;
     }
-
-    
-
 
     .status {
       margin-top: 20px;
@@ -125,6 +110,34 @@
       color: var(--primary);
       text-shadow: 0 0 5px var(--primary);
     }
+
+    table {
+      margin-top: 50px;
+      width: 100%;
+      overflow-x: auto;
+      background: rgba(255,255,255,0.05);
+      border-collapse: collapse;
+      border-radius: 12px;
+    }
+
+    th, td {
+      padding: 10px 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    th {
+      background: rgba(0, 255, 255, 0.2);
+      color: var(--primary);
+    }
+
+    td {
+      color: white;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
@@ -133,121 +146,96 @@
     <div class="form-title">NEFT Form</div>
 
     <form class="form-grid" id="neftForm">
-      <div>
-        <label>Select Module</label>
-        <select>
-          <option>Academic</option>
-          <option>Hostel</option>
-          <option>Other</option>
-        </select>
-      </div>
+      <div><label>Module</label><select name="module"><option selected>Academic</option><option>Hostel</option><option>Other</option></select></div>
+      <div><label>Loan Type</label><select name="loanType"><option selected>Bank Transfer</option><option>IMPS</option><option>RTGS</option></select></div>
+      <div><label>Amount</label><input type="number" name="amount" value="5000"></div>
+      <div><label>Submission Date</label><input type="date" name="submissionDate" value="2025-04-16"></div>
+      <div><label>Payment Date</label><input type="date" name="paymentDate" value="2025-04-17"></div>
+      <div><label>Type of Fee</label><input type="text" name="typeOfFee" value="Tuition Fee"></div>
+      <div><label>Transaction No.</label><input type="text" name="transactionNo" value="TX123456789"></div>
+      <div><label>Updated Transaction No.</label><input type="text" name="updatedTransactionNo" value="TX987654321"></div>
+      <div><label>Sender Mob No.</label><input type="tel" name="senderMob" value="9876543210"></div>
+      <div><label>Sender Bank</label><input type="text" name="senderBank" value="ICICI Bank"></div>
+      <div><label>Account Holder</label><input type="text" name="accountHolder" value="John Doe"></div>
+      <div><label>IFSC Code</label><input type="text" name="ifscCode" value="ICIC0001234"></div>
+      <div><label>Bank Address</label><input type="text" name="bankAddress" value="Mumbai, Maharashtra"></div>
+      <div><label>Remark</label><input type="text" name="remark" value="Fee Payment for 2024-25"></div>
+      <div><label>Reconciled</label><input type="text" name="reconciled" value="Yes"></div>
 
-      <div>
-        <label>Type of Transfer</label>
-        <select>
-          <option>Bank Transfer</option>
-          <option>IMPS</option>
-          <option>RTGS</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Admission No.</label>
-        <input type="text" placeholder="e.g. 24SBBS1040021">
-      </div>
-
-      <div>
-        <label>Student Name</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>Father Name</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>Submission Date</label>
-        <input type="date" value="2025-04-15">
-      </div>
-
-      <div>
-        <label>Date of Payment</label>
-        <input type="date">
-      </div>
-
-      <div>
-        <label>Amount of NEFT/RTGS/IMPS</label>
-        <input type="number" placeholder="Amount in ₹">
-      </div>
-
-      <div>
-        <label>Type of Fee</label>
-        <input type="text" placeholder="e.g. Tuition, Hostel">
-      </div>
-
-      <div>
-        <label>UTR No./Transaction No.</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>Sender Mobile No.</label>
-        <input type="tel" placeholder="+91">
-      </div>
-
-      <div>
-        <label>Sender Bank Name</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>IFSC Code of Sender Bank</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>Account Holder Name</label>
-        <input type="text">
-      </div>
-
-      <div>
-        <label>Bank Address</label>
-        <input type="text">
-      </div>
-
-      <div style="grid-column: span 2;">
-        <label>Remark</label>
-        <textarea rows="3" placeholder="Any remarks..."></textarea>
-      </div>
-
-      <div class="submit-btn" style="grid-column: span 2;">
-        <button type="submit">Submit</button>
-      </div>
+      <div class="submit-btn"><button type="submit">Submit</button></div>
     </form>
 
     <div class="status" id="statusMessage">✅ Submitted Successfully</div>
-    <div class="file-icon" id="fileIcon">📄</div>
+
+    <div class="table-wrapper">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Sr No.</th>
+            <th>Module</th>
+            <th>Loan Type</th>
+            <th>Amount</th>
+            <th>Submission Date</th>
+            <th>Payment Date</th>
+            <th>Type Of Fee</th>
+            <th>Transaction No.</th>
+            <th>Updated Transaction No.</th>
+            <th>Sender Mob No.</th>
+            <th>Sender Bank</th>
+            <th>Account Holder</th>
+            <th>IFSC Code</th>
+            <th>Bank Address</th>
+            <th>Remark</th>
+            <th>Reconciled</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Academic</td>
+            <td>Bank Transfer</td>
+            <td>5000</td>
+            <td>2025-04-16</td>
+            <td>2025-04-17</td>
+            <td>Tuition Fee</td>
+            <td>TX123456789</td>
+            <td>TX987654321</td>
+            <td>9876543210</td>
+            <td>ICICI Bank</td>
+            <td>John Doe</td>
+            <td>ICIC0001234</td>
+            <td>Mumbai, Maharashtra</td>
+            <td>Fee Payment for 2024-25</td>
+            <td>Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script>
+    let srNo = 2;
     const form = document.getElementById('neftForm');
-    const fileIcon = document.getElementById('fileIcon');
+    const tableBody = document.querySelector("#dataTable tbody");
     const statusMessage = document.getElementById('statusMessage');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      const formData = new FormData(form);
+      const newRow = document.createElement('tr');
 
-      fileIcon.classList.remove('animate-file'); // reset animation
-      void fileIcon.offsetWidth; // reflow
-      fileIcon.classList.add('animate-file');
+      newRow.innerHTML = `<td>${srNo++}</td>` +
+        [...formData.entries()].map(entry => `<td>${entry[1]}</td>`).join('');
 
-      statusMessage.style.display = 'none';
+      tableBody.appendChild(newRow);
+      form.reset();
+      statusMessage.style.display = 'block';
 
       setTimeout(() => {
-        statusMessage.style.display = 'block';
-      }, 1300);
+        statusMessage.style.display = 'none';
+      }, 2500);
     });
   </script>
+
 </body>
 </html>
