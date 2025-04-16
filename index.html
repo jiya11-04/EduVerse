@@ -327,43 +327,78 @@
       </div>
     </div>
 
-    <p id="greeting">Please select an account type</p>
-
-    <!-- Teacher Section -->
-<div id="teacher-id-field" class="input-group hidden">
-  <label for="teacherId">Teacher ID</label>
-  <input type="text" id="teacherId" name="teacherId" placeholder="Enter Teacher ID">
-
-  <label for="teacherPassword">Password</label>
-  <input type="password" id="teacherPassword" name="teacherPassword" placeholder="Enter Password">
-</div>
-
-<!-- Student Section -->
-<div id="student-id-field" class="input-group hidden">
-  <label for="admissionNo">Admission No.</label>
-  <input type="text" id="admissionNo" name="admissionNo" placeholder="Enter Admission No.">
-
-  <label for="studentPassword">Password</label>
-  <input type="password" id="studentPassword" name="studentPassword" placeholder="Enter Password">
-</div>
-
-<form id="loginForm">
-  <!-- Example input fields -->
-  <div class="input-group">
-    <label for="username">Username</label>
-    <input type="text" id="username" required />
-  </div>
-
-  <div class="input-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" required />
-  </div>
-
-  <div class="login-footer">
-    <a href="#">Forgot?</a>
-    <button type="submit">Login</button>
-  </div>
-</form>
+    <!-- Examination -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-pencil-alt calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-pen tile-icon"></i>
+        <div class="label">Examination</div>
+      </div>
+    </div>
+  
+    <!-- Report Card -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-chart-bar calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-poll tile-icon"></i>
+        <div class="label">Report Card</div>
+      </div>
+    </div>
+  
+    <!-- Query Box -->
+    <a href="query.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-question-circle calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-comment tile-icon"></i>
+        <div class="label">Query Box</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- Food Court -->
+    <a href="main-page.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-hamburger calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-utensils tile-icon"></i>
+        <div class="label">Food Court</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- College Essentials -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-box-open calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-box tile-icon"></i>
+        <div class="label">College Essentials</div>
+      </div>
+    </div>
+  
+    <!-- Societies -->
+    <a href="societies.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-users calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-people-arrows tile-icon"></i>
+        <div class="label">Societies</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- Tile: Medical -->
+    <a href="medical.html" style="text-decoration: none; color: inherit;">
+      <div class="futuristic-tile" onclick="triggerAnimation(this)">
+        <i class="fas fa-clipboard-list calendar-icon"></i>
+        <div class="icon-wrapper">
+          <i class="fas fa-notes-medical tile-icon"></i>
+          <div class="label">Medical</div>
+        </div>
+        
+      </div>
+    </a>
+  
 
   <!-- Floating Chatbot -->
   <div class="chatbot" onclick="toggleChatbox()">
@@ -380,46 +415,99 @@
     </div>
   </div>
 
-      <script>
-        function selectRole(role) {
-          // Greeting text change
-          const greetingText = role === 'teacher' ? 'Enter Teacher ID' : 'Enter Teacher Admission No.';
-          document.getElementById('greeting').textContent = greetingText;
-      
-          // Show/hide fields with animation
-          document.getElementById('teacher-id-field').classList.toggle('hidden', role !== 'teacher');
-          document.getElementById('student-id-field').classList.toggle('hidden', role !== 'student');
-      
-          // Add "selected" effect to the selected account
-          const teacherCard = document.getElementById('teacher');
-          const studentCard = document.getElementById('student');
-          if (role === 'teacher') {
-            teacherCard.classList.add('selected');
-            studentCard.classList.remove('selected');
-          } else {
-            studentCard.classList.add('selected');
-            teacherCard.classList.remove('selected');
-          }
-        }
+  
 
+  <!-- Profile Popup -->
+<div class="profile-popup" id="profilePopup">
+  <div class="popup-header">
+    <div class="profile-pic"></div>
+    <div>
+      <div class="profile-name">XYZ</div>
+      <div class="profile-course">🎓 B Sc Medi Biotech I 2024–25</div>
+      <div class="profile-id">📌 24071040007</div>
+      <div class="profile-school">🏫 School Of Biological And Biomedical Sciences</div>
+    </div>
+  </div>
+  <hr />
+  <div class="popup-links">
+    <a href="profile.html" style="text-decoration: none; color: inherit;">
+      <div class="popup-link"><i class="fas fa-user"></i> Profile</div>
+    </a>
+    <div class="popup-link"><i class="fas fa-key"></i> Reset Password</div>
+    <div class="popup-link logout"><i class="fas fa-power-off"></i> Logout</div>
+  </div>
+</div> 
 
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
+  </div>
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
-
-    // Basic validation (you can enhance this as needed)
-    if (username === "" || password === "") {
-      alert("Please enter both username and password.");
-      return;
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.contains("dark-theme");
+      body.classList.remove("dark-theme", "light-theme");
+      body.classList.add(isDark ? "light-theme" : "dark-theme");
+      localStorage.setItem("eduverse-theme", isDark ? "light-theme" : "dark-theme");
     }
 
-    // You can also add real authentication here
-    // If everything is fine, redirect
-    window.location.href = "home2.html";
-  });
-      </script>
-      
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("eduverse-theme");
+      if (saved) {
+        document.body.classList.remove("dark-theme", "light-theme");
+        document.body.classList.add(saved);
+      }
+    });
+
+    function triggerAnimation(container) {
+      container.classList.toggle("active");
+    }
+
+    // Profile Popout
+    function toggleProfilePopup() {
+      const popup = document.getElementById("profilePopup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (e) {
+      const popup = document.getElementById("profilePopup");
+      const profileIcon = document.querySelector(".profile-icon");
+      if (!popup.contains(e.target) && !profileIcon.contains(e.target)) {
+        popup.style.display = "none";
+      }
+    });
+
+    // Chatbot
+    function toggleChatbox() {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.style.display = chatbox.style.display === "flex" ? "none" : "flex";
+    }
+
+    function handleQuickReply(text) {
+  const chatBody = document.getElementById('chatBody');
+  const response = getBotResponse(text);
+
+  chatBody.innerHTML += <p><strong>You:</strong> ${text}</p>;
+  chatBody.innerHTML += <p><strong>EduBot:</strong> ${response}</p>;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function getBotResponse(query) {
+  switch (query.toLowerCase()) {
+    case "attendance":
+      return "You can view your attendance under the 'Attendance' section.";
+    case "timetable":
+      return "Your class timetable is available under the 'Timetable' tile.";
+    case "neft form":
+    case "neft":
+      return "NEFT form submissions can be done under the 'NEFT Form' tile.";
+    case "upload medical":
+    case "medical":
+      return "You can upload medical documents under the 'Upload Medical' section.";
+    default:
+      return "I'm not sure how to help with that yet 🤖";
+  }
+}
+
+  </script>
 </body>
 </html>

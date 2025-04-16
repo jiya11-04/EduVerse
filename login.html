@@ -6,12 +6,10 @@
   <link rel="stylesheet" href="login.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
- 
 </head>
 <body>
 
-  <form id="loginForm" >
+  <form id="loginForm">
     <h2>Login</h2>
 
     <div class="account-types">
@@ -27,46 +25,72 @@
 
     <p id="greeting">Please select an account type</p>
 
+    <!-- Teacher Section -->
     <div id="teacher-id-field" class="input-group hidden">
       <label for="teacherId">Teacher ID</label>
       <input type="text" id="teacherId" name="teacherId" placeholder="Enter Teacher ID">
+      <label for="teacherPassword">Password</label>
+      <input type="password" id="teacherPassword" name="teacherPassword" placeholder="Enter Password">
     </div>
 
+    <!-- Student Section -->
     <div id="student-id-field" class="input-group hidden">
       <label for="admissionNo">Admission No.</label>
       <input type="text" id="admissionNo" name="admissionNo" placeholder="Enter Admission No.">
+      <label for="studentPassword">Password</label>
+      <input type="password" id="studentPassword" name="studentPassword" placeholder="Enter Password">
     </div>
 
-    
     <div class="login-footer">
       <a href="#">Forgot?</a>
       <button type="submit">Login</button>
     </div>
+  </form>
 
-      </form>
+  <script>
+    let selectedRole = null;
 
-      <script>
-        function selectRole(role) {
-          // Greeting text change
-          const greetingText = role === 'teacher' ? 'Enter Teacher ID' : 'Enter Teacher Admission No.';
-          document.getElementById('greeting').textContent = greetingText;
-      
-          // Show/hide fields with animation
-          document.getElementById('teacher-id-field').classList.toggle('hidden', role !== 'teacher');
-          document.getElementById('student-id-field').classList.toggle('hidden', role !== 'student');
-      
-          // Add "selected" effect to the selected account
-          const teacherCard = document.getElementById('teacher');
-          const studentCard = document.getElementById('student');
-          if (role === 'teacher') {
-            teacherCard.classList.add('selected');
-            studentCard.classList.remove('selected');
-          } else {
-            studentCard.classList.add('selected');
-            teacherCard.classList.remove('selected');
-          }
-        }
-      </script>
-      
+    function selectRole(role) {
+      selectedRole = role;
+      const greetingText = role === 'teacher' ? 'Enter Teacher ID' : 'Enter Admission No.';
+      document.getElementById('greeting').textContent = greetingText;
+
+      document.getElementById('teacher-id-field').classList.toggle('hidden', role !== 'teacher');
+      document.getElementById('student-id-field').classList.toggle('hidden', role !== 'student');
+
+      document.getElementById('teacher').classList.toggle('selected', role === 'teacher');
+      document.getElementById('student').classList.toggle('selected', role === 'student');
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!selectedRole) {
+        alert("Please select a role first.");
+        return;
+      }
+
+      let isValid = false;
+
+      if (selectedRole === 'teacher') {
+        const teacherId = document.getElementById("teacherId").value.trim();
+        const teacherPassword = document.getElementById("teacherPassword").value.trim();
+        if (teacherId && teacherPassword) isValid = true;
+      } else if (selectedRole === 'student') {
+        const admissionNo = document.getElementById("admissionNo").value.trim();
+        const studentPassword = document.getElementById("studentPassword").value.trim();
+        if (admissionNo && studentPassword) isValid = true;
+      }
+
+      if (!isValid) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      // Redirect after validation
+      window.location.href = "index.html";
+    });
+  </script>
+
 </body>
-</html>ssss
+</html>
