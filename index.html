@@ -1,27 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Glassmorphism Login Form</title>
-  <link rel="stylesheet" href="login.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduVerse - Futuristic College Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --text-light: #fff;
+      --text-dark: #1a1a1a;
+    }
 
- 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-theme {
+      background: radial-gradient(circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%);
+      color: var(--text-light);
+    }
+
+    body.light-theme {
+      --bg-color: #e6e6e6ab;
+      --card-bg: rgba(255, 255, 255, 0.504);
+      --card-border: rgba(0, 0, 0, 0.1);
+      --card-shadow: rgba(0, 0, 0, 0.15);
+      --text-color: #1f1f1f;
+      --icon-glow: #333333;
+      --nav-bg: #d0d0d0;
+      --nav-text: #000;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-right i,
+    .theme-toggle i {
+      margin-left: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-image: url('profile-pic.webp');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      margin-left: 20px;
+    }
+
+    .dashboard {
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .futuristic-tile {
+      position: relative;
+      height: 180px;
+      background: var(--glass-dark);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .tile-icon {
+      font-size: 48px;
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 16px;
+      text-shadow: 0 0 5px var(--primary);
+    }
+
+    .icon-wrapper {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.4s ease;
+    }
+
+    .calendar-icon {
+      position: absolute;
+      font-size: 100px;
+      color: rgba(0, 255, 255, 0.1);
+      z-index: 1;
+      opacity: 0;
+      transform: rotate(0deg);
+      transition: opacity 0.5s ease;
+    }
+
+    .active .calendar-icon {
+      opacity: 1;
+      animation: rotateCalendar 2s linear infinite;
+    }
+
+    .active .icon-wrapper {
+      transform: translateY(-10px) scale(1.1);
+    }
+
+    @keyframes rotateCalendar {
+      0% { transform: rotate(0deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1.2); }
+    }
+
+    .chatbot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: #000;
+      padding: 12px 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary);
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .chatbox {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 300px;
+      background: #1a1a2e;
+      color: white;
+      border-radius: 15px;
+      box-shadow: 0 0 10px var(--primary);
+      display: none;
+      flex-direction: column;
+      z-index: 998;
+    }
+
+    .chatbox-header {
+      background: var(--primary);
+      color: #000;
+      padding: 10px;
+      border-radius: 15px 15px 0 0;
+      font-weight: bold;
+    }
+
+    .chatbox-body {
+      padding: 15px;
+      height: 200px;
+      overflow-y: auto;
+    }
+
+    .chatbox-footer {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #444;
+    }
+
+    .chatbox-footer input {
+      flex: 1;
+      padding: 5px;
+      border: none;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+    .chatbox-footer button {
+      background: var(--primary);
+      border: none;
+      border-radius: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .profile-popup {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      border-radius: 15px;
+      width: 300px;
+      color: #fff;
+      z-index: 9999;
+      display: none;
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      gap: 15px;
+    }
+
+    .profile-pic {
+      width: 60px;
+      height: 60px;
+      background-image: url('profile-pic.webp');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 2px solid #00ffff;
+    }
+
+    .popup-links {
+      padding: 10px 20px 20px 20px;
+    }
+
+    .popup-link {
+      padding: 10px 0;
+      color: #00ffff;
+      cursor: pointer;
+    }
+
+    .popup-link.logout {
+      color: #ff6b6b;
+    }
+
+    .popup-link:hover {
+      text-shadow: 0 0 8px currentColor;
+    }
+
+  </style>
 </head>
-<body>
+<body class="dark-theme">
+  <nav class="navbar">
+    <div class="logo">EduVerse</div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+      </button>
+      <i class="fas fa-info-circle"></i>
+      <div class="profile-icon" onclick="toggleProfilePopup()"></div>
+    </div>
+  </nav>
 
-  <form id="loginForm" >
-    <h2>Login</h2>
-
-    <div class="account-types">
-      <div class="account" id="teacher" onclick="selectRole('teacher')">
-        <img src="https://img.icons8.com/color/96/teacher.png"/>
-        <p>Teacher/Admin</p>
+  <div class="dashboard">
+    <!-- Attendance -->
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-calendar-alt calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-user-check tile-icon"></i>
+        <div class="label">Attendance</div>
       </div>
-      <div class="account" id="student" onclick="selectRole('student')">
-        <img src="https://img.icons8.com/color/96/student-male--v1.png"/>
-        <p>Student</p>
+    </div>
+  
+    <!-- Timetable -->
+    <a href="tt.html" style="text-decoration: none; color: inherit;">
+      <div class="futuristic-tile" onclick="triggerAnimation(this)">
+        <i class="fas fa-clipboard-list calendar-icon"></i>
+        <div class="icon-wrapper">
+          <i class="fas fa-table tile-icon"></i>
+          <div class="label">Timetable</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- NEFT Form -->    
+    <div class="futuristic-tile" onclick="window.location.href='NEFT.html'">
+      <i class="fas fa-university calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-file-invoice-dollar tile-icon"></i>
+        <div class="label">NEFT Form</div>
       </div>
     </div>
 
@@ -63,7 +365,20 @@
   </div>
 </form>
 
-      </form>
+  <!-- Floating Chatbot -->
+  <div class="chatbot" onclick="toggleChatbox()">
+    <i class="fas fa-robot"></i>
+  </div>
+  <div class="chatbox" id="chatbox">
+    <div class="chatbox-header">EduBot</div>
+    <div class="chatbox-body" id="chatBody">
+      <p>Hello! How can I help you today? 🤖</p>
+    </div>
+    <div class="chatbox-footer">
+      <input type="text" placeholder="Type here..." />
+      <button>Send</button>
+    </div>
+  </div>
 
       <script>
         function selectRole(role) {
@@ -107,4 +422,4 @@
       </script>
       
 </body>
-</html>ssss
+</html>
