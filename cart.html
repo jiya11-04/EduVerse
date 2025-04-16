@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🛒 Your Cart | EduVerse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0f0f1a, #1c1c2e);
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      border: 1px solid #00ffff;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #111;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(8px);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00ffff;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 Your Cart</h1>
+
+  <div id="cartDisplay"></div>
+
+  <form id="checkoutForm">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="tel" id="contact" placeholder="Contact Number" required />
+    <input type="time" id="time" required />
+    <button type="submit">Checkout</button>
+  </form>
+
+  <script src="cart.js"></script>
+  <script>
+    const cartDisplay = document.getElementById('cartDisplay');
+    const cart = getCartItems();
+
+    if (cart.length === 0) {
+      cartDisplay.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      let html = `<table><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>`;
+      let total = 0;
+
+      cart.forEach(item => {
+        html += `<tr><td>${item.name}</td><td>₹${item.price}</td></tr>`;
+        total += parseFloat(item.price);
+      });
+
+      html += `</tbody></table><div class="total">Total: ₹${total.toFixed(2)}</div>`;
+      cartDisplay.innerHTML = html;
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const contact = document.getElementById('contact').value;
+      const time = document.getElementById('time').value;
+
+      alert(`Thank you, ${name}! Your order will be ready at ${time}.`);
+
+      clearCart();
+      window.location.href = "cafeteria.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Societies | Noteveda</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    #filter {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .event-box {
+      background-color: white;
+      border-left: 5px solid #2980b9;
+      padding: 20px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      max-width: 700px;
+    }
+
+    .event-box:hover {
+      transform: scale(1.02);
+    }
+
+    .event-title {
+      font-size: 1.5rem;
+      color: #34495e;
+    }
+
+    .event-details {
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+
+    .event-link a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    .event-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Societies & Club Events </h1>
+
+  <div id="filter">
+    <select onchange="filterEvents(this.value)">
+      <option value="all">Show All Societies</option>
+      <option value="gdg">Google Developer Group</option>
+      <option value="codesociety">CodeSociety</option>
+      <option value="robotics">Robotics Club</option>
+      <option value="culture">Culture Society</option>
+      <option value="literature">Literature Club</option>
+      <option value="drama">Drama Club</option>
+      <option value="music">Music Club</option>
+      <option value="sports">Sports Society</option>
+    </select>
+  </div>
+
+  <!-- Events Section -->
+  <div id="events-container">
+    <div class="event-box" data-society="gdg">
+      <div class="event-title">Google Developer Group Meetup</div>
+      <div class="event-details"> April 25, 2025 |  2:00 PM - 4:00 PM |  Seminar Hall A</div>
+      <div class="event-link"><a href="https://gdg.dev/event-link" target="_blank">More Info</a></div>
+    </div>
+
+    <div class="event-box" data-society="codesociety">
+      <div class="event-title">AI & ML Workshop by CodeSociety</div>
+      <div class="event-details"> May 2, 2025 |  11:00 AM - 1:30 PM |  Lab 304</div>
+      <div class="event-link"> <a href="https://codeai.event.link" target="_blank">Join Now</a></div>
+    </div>
+
+    <div class="event-box" data-society="robotics">
+      <div class="event-title">Robotics Championship 2025</div>
+      <div class="event-details">📅 May 10, 2025 | 🕒 10:00 AM - 5:00 PM | 📍 Auditorium</div>
+      <div class="event-link"> <a href="https://roboticsclub.event.link" target="_blank">Register</a></div>
+    </div>
+
+    <div class="event-box" data-society="culture">
+      <div class="event-title">Fusion Fest by Culture Society</div>
+      <div class="event-details">April 28, 2025 |  5:00 PM - 8:00 PM |  Open Amphitheatre</div>
+      <div class="event-link"> <a href="https://fusionfest.link" target="_blank">Explore More</a></div>
+    </div>
+
+    <div class="event-box" data-society="literature">
+      <div class="event-title">LitTalks: Poetry & Prose</div>
+      <div class="event-details"> May 4, 2025 |  3:00 PM - 5:00 PM |  Reading Room</div>
+      <div class="event-link"> <a href="https://littalks.link" target="_blank">Register</a></div>
+    </div>
+
+    <div class="event-box" data-society="drama">
+      <div class="event-title">The Stage Play: Modern Mahabharat</div>
+      <div class="event-details"> May 12, 2025 |  6:00 PM - 8:30 PM |  Main Auditorium</div>
+      <div class="event-link"> <a href="https://dramasociety.event" target="_blank">Book Tickets</a></div>
+    </div>
+
+    <div class="event-box" data-society="music">
+      <div class="event-title">Battle of Bands 2025</div>
+      <div class="event-details"> May 6, 2025 |  7:00 PM - 10:00 PM |  Lawn Stage</div>
+      <div class="event-link"> <a href="https://musicclub.event" target="_blank">Listen Live</a></div>
+    </div>
+
+    <div class="event-box" data-society="sports">
+      <div class="event-title">Annual Sports Meet</div>
+      <div class="event-details"> May 15, 2025 |  9:00 AM - 5:00 PM |  Sports Ground</div>
+      <div class="event-link"> <a href="https://sportsmeet.link" target="_blank">Know More</a></div>
+    </div>
+  </div>
+
+  <script>
+    function filterEvents(society) {
+      const events = document.querySelectorAll('.event-box');
+      events.forEach(event => {
+        if (society === 'all' || event.dataset.society === society) {
+          event.style.display = 'block';
+        } else {
+          event.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

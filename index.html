@@ -27,21 +27,41 @@
 
     <p id="greeting">Please select an account type</p>
 
-    <div id="teacher-id-field" class="input-group hidden">
-      <label for="teacherId">Teacher ID</label>
-      <input type="text" id="teacherId" name="teacherId" placeholder="Enter Teacher ID">
-    </div>
+    <!-- Teacher Section -->
+<div id="teacher-id-field" class="input-group hidden">
+  <label for="teacherId">Teacher ID</label>
+  <input type="text" id="teacherId" name="teacherId" placeholder="Enter Teacher ID">
 
-    <div id="student-id-field" class="input-group hidden">
-      <label for="admissionNo">Admission No.</label>
-      <input type="text" id="admissionNo" name="admissionNo" placeholder="Enter Admission No.">
-    </div>
+  <label for="teacherPassword">Password</label>
+  <input type="password" id="teacherPassword" name="teacherPassword" placeholder="Enter Password">
+</div>
 
-    
-    <div class="login-footer">
-      <a href="#">Forgot?</a>
-      <button type="submit">Login</button>
-    </div>
+<!-- Student Section -->
+<div id="student-id-field" class="input-group hidden">
+  <label for="admissionNo">Admission No.</label>
+  <input type="text" id="admissionNo" name="admissionNo" placeholder="Enter Admission No.">
+
+  <label for="studentPassword">Password</label>
+  <input type="password" id="studentPassword" name="studentPassword" placeholder="Enter Password">
+</div>
+
+<form id="loginForm">
+  <!-- Example input fields -->
+  <div class="input-group">
+    <label for="username">Username</label>
+    <input type="text" id="username" required />
+  </div>
+
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" required />
+  </div>
+
+  <div class="login-footer">
+    <a href="#">Forgot?</a>
+    <button type="submit">Login</button>
+  </div>
+</form>
 
       </form>
 
@@ -66,6 +86,24 @@
             teacherCard.classList.remove('selected');
           }
         }
+
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    // Basic validation (you can enhance this as needed)
+    if (username === "" || password === "") {
+      alert("Please enter both username and password.");
+      return;
+    }
+
+    // You can also add real authentication here
+    // If everything is fine, redirect
+    window.location.href = "home2.html";
+  });
       </script>
       
 </body>

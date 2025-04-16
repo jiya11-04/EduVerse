@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Asian Delights | EduVerse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.1);
+      --text-light: #ffffff;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(37, 89, 222, 1) 0%, rgba(37, 89, 222, 0.8) 30%, rgba(20, 30, 95, 0.8) 60%, rgba(4, 4, 29, 1) 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text-light);
+      padding: 40px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .menu {
+      max-width: 800px;
+      margin: auto;
+      margin-top: 30px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .item {
+      background: var(--glass-light);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .item p {
+      margin: 5px 0 10px;
+      font-size: 0.95rem;
+    }
+
+    .order-form {
+      margin-top: 40px;
+      max-width: 600px;
+      margin-inline: auto;
+      background: var(--glass-light);
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .order-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .order-form label {
+      display: block;
+      margin-bottom: 5px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .order-form input, .order-form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 10px;
+      background: var(--glass-dark);
+      color: var(--text-light);
+    }
+
+    .order-form button {
+      background-color: var(--primary);
+      color: var(--text-dark);
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .order-form button:hover {
+      background-color: #00cccc;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .back-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    #floatingCart {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #00ffff;
+      color: #000;
+      padding: 12px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 10px cyan;
+      z-index: 999;
+    }
+
+    #floatingCart span {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 8px;
+      margin-left: 5px;
+    }
+
+    #cartSidebar {
+      position: fixed;
+      right: -100%;
+      top: 0;
+      height: 100%;
+      width: 300px;
+      background: #1a1a2f;
+      color: white;
+      padding: 20px;
+      transition: right 0.3s ease;
+      z-index: 998;
+      box-shadow: -2px 0 10px rgba(0, 255, 255, 0.2);
+      overflow-y: auto;
+    }
+
+    #cartSidebar.open {
+      right: 0;
+    }
+
+    #cartSidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #cartSidebar ul li {
+      margin: 10px 0;
+    }
+
+    #checkoutForm input {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍜 Asian Delights</h1>
+  <h2>Spice & Wok Magic</h2>
+
+  <div class="menu">
+    <div class="item"><img src="images/hakka_noodles.jpg" alt="Hakka Noodles"/><div><h3>Hakka Noodles</h3><p>Stir-fried noodles with veggies and sauces</p><strong>₹100</strong></div></div>
+    <div class="item"><img src="images/spring_rolls.jpg" alt="Spring Rolls"/><div><h3>Spring Rolls</h3><p>Crispy rolls stuffed with vegetables</p><strong>₹80</strong></div></div>
+    <div class="item"><img src="images/manchurian.jpg" alt="Manchurian"/><div><h3>Veg Manchurian</h3><p>Deep-fried veggie balls in tangy sauce</p><strong>₹110</strong></div></div>
+  </div>
+
+  <div class="order-form">
+    <h2>🛒 Place Your Order</h2>
+    <form onsubmit="submitOrder(event)">
+      <label for="item">Select Dish</label>
+      <select id="item" required>
+        <option value="">-- Choose an item --</option>
+        <option value="Hakka Noodles">Hakka Noodles - ₹100</option>
+        <option value="Spring Rolls">Spring Rolls - ₹80</option>
+        <option value="Veg Manchurian">Veg Manchurian - ₹110</option>
+      </select>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" min="1" max="10" value="1" required />
+
+      <label for="pickup">Pickup Time</label>
+      <input type="time" id="pickup" required />
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="" required />
+
+      <label for="contact">Contact Number</label>
+      <input type="tel" id="contact" placeholder="" required />
+
+      <button type="submit">Confirm Order</button>
+    </form>
+  </div>
+
+  <div class="back-link">
+    <a href="../main-page.html">⬅ Back to Food Court</a>
+  </div>
+
+  <!-- Floating Cart Button -->
+  <div id="floatingCart" onclick="toggleCart()">
+    🛒 <span id="cartCount">0</span>
+  </div>
+
+  
+ <!-- Cart Sidebar -->
+<div id="cartSidebar">
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <p>Total: ₹<span id="cartTotal">0</span></p>
+    <button onclick="showCheckoutForm()">Checkout</button>
+    <button onclick="clearCart()">Clear</button>
+  
+    <form id="checkoutForm" style="display:none" onsubmit="placeOrder(event)">
+      <input type="text" placeholder="Name" required id="custName" />
+      <input type="text" placeholder="Contact" required id="custContact" />
+      
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="">Select Payment Method</option>
+        <option value="UPI">UPI</option>
+        <option value="Credit/Debit Card">Credit/Debit Card</option>
+        <option value="Cash">Cash</option>
+      </select>
+  
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  
+<script>
+let cart = JSON.parse(localStorage.getItem('eduverseCart')) || [];
+
+const priceMap = {
+  'Hakka Noodles': 100,
+  'Spring Rolls': 80,
+  'Veg Manchurian': 110
+};
+
+function saveCart() {
+  localStorage.setItem('eduverseCart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function addToCart(itemName, price) {
+  cart.push({ name: itemName, price: parseFloat(price) });
+  saveCart();
+}
+
+function updateCartUI() {
+  const cartItems = document.getElementById('cartItems');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+
+  cartItems.innerHTML = '';
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    cartItems.innerHTML += `<li>${item.name} - ₹${item.price} <button onclick="removeFromCart(${index})">❌</button></li>`;
+  });
+
+  cartCount.textContent = cart.length;
+  cartTotal.textContent = total.toFixed(2);
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
+
+function clearCart() {
+  cart = [];
+  saveCart();
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+}
+
+function showCheckoutForm() {
+  document.getElementById('checkoutForm').style.display = 'block';
+}
+
+function placeOrder(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value;
+  const contact = document.getElementById('custContact').value;
+  const payment = document.getElementById('payment').value;
+
+  if (!payment) {
+    alert("Please select a payment method.");
+    return;
+  }
+
+  let orderSummary = cart.map(item => `${item.name} - ₹${item.price}`).join("\n");
+
+  alert(`✅ Order Placed!\n\nName: ${name}\nContact: ${contact}\nPayment: ${payment}\n\nOrder Summary:\n${orderSummary}`);
+
+  clearCart();
+  document.getElementById('checkoutForm').reset();
+  document.getElementById('checkoutForm').style.display = 'none';
+  toggleCart();
+}
+
+
+function submitOrder(event) {
+  event.preventDefault();
+  const item = document.getElementById('item').value;
+  const qty = parseInt(document.getElementById('quantity').value);
+  const time = document.getElementById('pickup').value;
+  const name = document.getElementById('name').value;
+
+  for (let i = 0; i < qty; i++) {
+    addToCart(item, priceMap[item]);
+  }
+
+  alert(`Order Confirmed!\n\n${qty} x ${item}\nPickup Time: ${time}\nName: ${name}\nEnjoy your meal!`);
+  document.querySelector(".order-form form").reset();
+}
+
+updateCartUI();
+</script>
+
+</body>
+</html>

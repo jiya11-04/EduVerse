@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food Court | EduVerse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.1);
+      --text-light: #ffffff;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(
+        circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%
+      );
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text-light);
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .search-bar {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .search-bar input {
+      padding: 12px 20px;
+      width: 60%;
+      max-width: 500px;
+      border-radius: 12px;
+      border: none;
+      background: var(--glass-dark);
+      color: var(--text-light);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .stall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .stall {
+      background: var(--glass-light);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stall:hover {
+      transform: scale(1.05);
+    }
+
+    .stall img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .stall h2 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .stall button {
+      padding: 10px 20px;
+      background-color: var(--primary);
+      border: none;
+      color: var(--text-dark);
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .stall button:hover {
+      background-color: #00cccc;
+    }
+
+
+
+
+    #floatingCart {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #00ffff;
+  color: #000;
+  padding: 12px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px cyan;
+  z-index: 999;
+}
+
+#floatingCart span {
+  background: rgba(238, 114, 231, 0.514);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  margin-left: 5px;
+}
+
+#cartSidebar {
+  position: fixed;
+  right: -100%;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background: #1a1a2f;
+  color: white;
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 998;
+  box-shadow: -2px 0 10px rgba(0, 255, 255, 0.2);
+  overflow-y: auto;
+}
+
+#cartSidebar.open {
+  right: 0;
+}
+
+#cartSidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#cartSidebar ul li {
+  margin: 10px 0;
+}
+
+#checkoutForm input {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>🍽️ EduVerse Food Court</h1>
+
+  <div class="search-bar">
+    <input type="text" id="searchBox" placeholder="Search for stalls or dishes..." />
+  </div>
+
+  <div class="stall-grid" id="stallContainer">
+
+    <!-- Existing Stalls -->
+    <div class="stall" data-name="Tandoori Express" data-dishes="Paneer Tikka Chicken Seekh Kebab Tandoori Naan">
+      <img src="images/tandoori.jpg" alt="Tandoori Express">
+      <h2>🔥 Tandoori Express</h2>
+      <button onclick="location.href='foodcourt/tandoori.html'">Grab a Bite</button>
+    </div>
+    
+
+    <div class="stall" data-name="Pasta Planet" data-dishes="White Sauce Pasta Arrabiata Mac Cheese">
+      <img src="images/pasta.jpg" alt="Pasta Planet">
+      <h2>🍝 Pasta Planet</h2>
+      <button onclick="location.href='foodcourt/pasta.html'">Grab a Bite</button>
+    </div>
+
+    <div class="stall" data-name="Slice of Heaven" data-dishes="Margherita Pizza Farmhouse Pizza Garlic Bread">
+      <img src="images/pizza.jpg" alt="Slice of Heaven">
+      <h2>🍕 Slice of Heaven</h2>
+      <button onclick="location.href='foodcourt/pizza.html'">Feed Me</button>
+    </div>
+
+    <div class="stall" data-name="Brew & Bite" data-dishes="Espresso Cold Coffee Puff">
+      <img src="images/coffee.jpg" alt="Brew & Bite">
+      <h2>☕ Brew & Bite</h2>
+      <button onclick="location.href='foodcourt/coffee.html'">Refuel</button>
+    </div>
+
+    <div class="stall" data-name="Asian Delights" data-dishes="Hakka Noodles Spring Rolls Manchurian">
+      <img src="images/asian.jpg" alt="Asian Delights">
+      <h2>🍜 Asian Delights</h2>
+      <button onclick="location.href='foodcourt/asian.html'">Order Now</button>
+    </div>
+
+    <!-- New Stalls -->
+    <div class="stall" data-name="The Chaat Stop" data-dishes="Pani Puri Bhel Chaat Dahi Papdi Aloo Tikki">
+      <img src="images/chaat.jpg" alt="The Chaat Stop">
+      <h2>🌶️ The Chaat Stop</h2>
+      <button onclick="location.href='foodcourt/chaat.html'">Spice Me Up</button>
+    </div>
+
+    <div class="stall" data-name="The Juice Junction" data-dishes="Mango Juice Watermelon Shake Smoothie Detox Apple Juice">
+      <img src="images/juice.jpg" alt="The Juice Junction">
+      <h2>🍹 Juice Junction</h2>
+      <button onclick="location.href='foodcourt/juice.html'">Get Refreshed</button>
+    </div>
+
+    <div class="stall" data-name="Snack Attack" data-dishes="Nachos Fries Chips Samosa Pakora Sandwich">
+      <img src="images/snacks.jpg" alt="Snack Attack">
+      <h2>🍟 Snack Attack</h2>
+      <button onclick="location.href='foodcourt/snack.html'">Snack It</button>
+    </div>
+
+    <div class="stall" data-name="Bakers’ Street" data-dishes="Muffin Brownie Donut Cake Cupcake Croissant">
+      <img src="images/bakery.jpg" alt="Bakers Street">
+      <h2>🧁 Bakers’ Street</h2>
+      <button onclick="location.href='foodcourt/bakery.html'">Sweet Tooth</button>
+    </div>
+
+    <div class="stall" data-name="Greens & Grains" data-dishes="Salad Bowl Smoothie Bowl Quinoa Avocado Wraps">
+      <img src="images/healthy.jpg" alt="Greens and Grains">
+      <h2>🥗 Greens & Grains</h2>
+      <button onclick="location.href='foodcourt/healthy.html'">Eat Clean</button>
+    </div>
+
+    <div class="stall" data-name="Ice Cream Universe" data-dishes="Vanilla Chocolate Sundae Cone Brownie Fudge">
+      <img src="images/icecream.jpg" alt="Ice Cream Universe">
+      <h2>🍨 Ice Cream Universe</h2>
+      <button onclick="location.href='foodcourt/icecream.html'">Chill Me</button>
+    </div>
+
+  </div>
+
+
+  <!-- Floating Cart Button -->
+<div id="floatingCart" onclick="toggleCart()">
+  🛒 <span id="cartCount">0</span>
+</div>
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar">
+  <h2>Your Cart</h2>
+  <ul id="cartItems"></ul>
+  <p>Total: ₹<span id="cartTotal">0</span></p>
+  <button onclick="showCheckoutForm()">Checkout</button>
+  <button onclick="clearCart()">Clear</button>
+
+  <!-- Checkout Form -->
+  <form id="checkoutForm" style="display:none" onsubmit="placeOrder(event)">
+    <input type="text" placeholder="Name" required id="custName" />
+    <input type="text" placeholder="Contact" required id="custContact" />
+    <input type="time" required id="pickupTime" />
+    <button type="submit">Place Order</button>
+  </form>
+</div>
+
+
+  <script>
+    const searchBox = document.getElementById("searchBox");
+    const stalls = document.querySelectorAll(".stall");
+
+    searchBox.addEventListener("input", () => {
+      const keyword = searchBox.value.toLowerCase();
+      stalls.forEach(stall => {
+        const name = stall.dataset.name.toLowerCase();
+        const dishes = stall.dataset.dishes.toLowerCase();
+        if (name.includes(keyword) || dishes.includes(keyword)) {
+          stall.style.display = "block";
+        } else {
+          stall.style.display = "none";
+        }
+      });
+    });
+
+
+
+   
+let cart = JSON.parse(localStorage.getItem('eduverseCart')) || [];
+
+function saveCart() {
+  localStorage.setItem('eduverseCart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function addToCart(itemName, price) {
+  cart.push({ name: itemName, price: parseFloat(price) });
+  saveCart();
+}
+
+function updateCartUI() {
+  const cartItems = document.getElementById('cartItems');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+
+  if (!cartItems || !cartCount || !cartTotal) return;
+
+  cartItems.innerHTML = '';
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    cartItems.innerHTML += `<li>${item.name} - ₹${item.price} <button onclick="removeFromCart(${index})">❌</button></li>`;
+  });
+
+  cartCount.textContent = cart.length;
+  cartTotal.textContent = total.toFixed(2);
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
+
+function clearCart() {
+  cart = [];
+  saveCart();
+}
+
+function toggleCart() {
+  const sidebar = document.getElementById('cartSidebar');
+  sidebar.classList.toggle('open');
+}
+
+function showCheckoutForm() {
+  document.getElementById('checkoutForm').style.display = 'block';
+}
+
+function placeOrder(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value;
+  const contact = document.getElementById('custContact').value;
+  const time = document.getElementById('pickupTime').value;
+
+  alert(`Order placed for ${name} (Contact: ${contact}) at ${time}.\nItems: ${cart.length}`);
+  
+  clearCart();
+  document.getElementById('checkoutForm').reset();
+  document.getElementById('checkoutForm').style.display = 'none';
+  toggleCart();
+}
+
+updateCartUI();
+</script>
+
+<script src="cart.js"></script>
+
+
+</body>
+</html>

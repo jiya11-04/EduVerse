@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maintenance Query - CR Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f3f3f3;
+    }
+    .container {
+      width: 600px;
+      background: white;
+      padding: 20px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Maintenance Query</h2>
+    
+    <form id="queryForm">
+      <label>Query:</label><br>
+      <input type="text" id="queryInput" name="query" required>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+
+    <h3>My Queries</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Query</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="queryTable">
+        <!-- JS will insert queries here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('queryForm');
+    const input = document.getElementById('queryInput');
+    const tableBody = document.getElementById('queryTable');
+
+    let queryCount = 0;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const queryText = input.value.trim();
+      if (queryText === '') return;
+
+      queryCount++;
+
+      const newRow = document.createElement('tr');
+
+      newRow.innerHTML = `
+        <td>${queryCount}</td>
+        <td>${queryText}</td>
+        <td>Pending</td>
+      `;
+
+      tableBody.appendChild(newRow);
+
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
