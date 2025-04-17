@@ -96,7 +96,7 @@
       border: none;
       border-radius: 10px;
       background: var(--glass-dark);
-      color: var(--text-light);
+      color:black;
     }
 
     .order-form button {
@@ -203,10 +203,10 @@
 
   <div class="order-form">
     <h2>🛒 Place Your Order</h2>
-    <form onsubmit="submitOrder(event)">
+    <form onsubmit="submitOrder(event)" >
       <label for="item">Select Dish</label>
       <select id="item" required>
-        <option value="">-- Choose an item --</option>
+        <option value="" >-- Choose an item --</option>
         <option value="Hakka Noodles">Hakka Noodles - ₹100</option>
         <option value="Spring Rolls">Spring Rolls - ₹80</option>
         <option value="Veg Manchurian">Veg Manchurian - ₹110</option>
