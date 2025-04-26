@@ -19,7 +19,7 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
-    """Handles the login form submission and inserts data into the database."""
+    """Handles the login form submission and verifies credentials."""
     if request.method == 'POST':
         student_id = request.form['student-id']
         password = request.form['password']
@@ -28,35 +28,30 @@ def login():
         cursor = None
 
         try:
-            # Insert into database
             conn = get_db_connection()
             cursor = conn.cursor()
-            sql = "INSERT INTO login (id, password) VALUES (%s, %s)"
-            val = (student_id, password)
+            sql = "SELECT id, password FROM login WHERE id = %s"
+            cursor.execute(sql, (student_id,))
+            result = cursor.fetchone()
 
-            cursor.execute(sql, val)
-            conn.commit()
+            if result:
+                db_id, db_password = result
+                if student_id == str(db_id) and password == db_password:
+                    return redirect('/index.html')
+                else:
+                    return "Invalid student ID or password."
+            else:
+                return "Student ID not found."
 
-            # Redirect to index.html after successful insertion
-            if cursor:
-                cursor.close()
-            if conn and conn.is_connected():
-                conn.close()
-            return redirect('/index.html')
         except mysql.connector.Error as err:
             print(f"Error: {err}")
+            return "An error occurred during login."
+        finally:
             if cursor:
                 cursor.close()
             if conn and conn.is_connected():
                 conn.close()
-            return "An error occurred during login."
-        # finally block is for guaranteed cleanup, not returning responses
-        # finally:
-        #     if 'conn' in locals() and conn.is_connected():
-        #         if 'cursor' in locals():
-        #             cursor.close()
-        #         conn.close()
-    # This should ideally not be reached on a POST request
+
     return render_template('login2.html')
 
 @app.route('/index.html')
