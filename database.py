@@ -228,17 +228,27 @@ def foodorders():
             pickup_time = request.form['pickup']
             customer_name = request.form['name']
             contact_number = request.form['contact']
+            
+            price = 0
+            if "Hakka Noodles" in dish_name:
+                price = 100
+            elif "Spring Rolls" in dish_name:
+                price = 80
+            elif "Veg Manchurian" in dish_name:
+                price = 110
+
+            total_cost = price * quantity
 
             # Print the data to debug
             print(f"Data received: student_id={student_id}, dish_name={dish_name}, quantity={quantity}, pickup_time={pickup_time}, customer_name={customer_name}, contact_number={contact_number}")
 
             # SQL query to insert data into the Orders table
             sql = """
-                INSERT INTO Orders (id, dish_name, quantity, pickup_time, customer_name, contact_number)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO Orders (id, dish_name, quantity, pickup_time, customer_name, contact_number,totalprice)
+                VALUES (%s, %s, %s, %s, %s, %s,%s)
             """
             # Execute the query with the form data
-            cursor.execute(sql, (student_id, dish_name, quantity, pickup_time, customer_name, contact_number))
+            cursor.execute(sql, (student_id, dish_name, quantity, pickup_time, customer_name, contact_number,total_cost))
             conn.commit()
             print("Order placed successfully!")
 
