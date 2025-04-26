@@ -1,6 +1,13 @@
 from flask import Flask, render_template, request, redirect, session
 import mysql.connector
 import os
+import qrcode
+from PIL import Image
+from IPython.display import display
+
+
+
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Important for session management
@@ -238,6 +245,23 @@ def foodorders():
                 price = 110
 
             total_cost = price * quantity
+            
+            data = "https://www.example.com"
+
+# Generate QR code
+            qr = qrcode.QRCode(
+            version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_H,
+    box_size=10,
+    border=4,
+)
+            qr.add_data(data)
+            qr.make(fit=True)
+
+# Create image
+            img = qr.make_image(fill_color="black", back_color="white")
+
+# Display the image in Colabdisplay(img)
 
             # Print the data to debug
             print(f"Data received: student_id={student_id}, dish_name={dish_name}, quantity={quantity}, pickup_time={pickup_time}, customer_name={customer_name}, contact_number={contact_number}")
