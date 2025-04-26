@@ -52,7 +52,7 @@ scene.add(directionalLight2);
 let moonMesh;
 const clock = new THREE.Clock();
 
-const loader = new GLTFLoader().setPath('pictures/');
+const loader = new GLTFLoader().setPath('/static/pictures/');
 loader.load('map4.gltf', (gltf) => {
   console.log('loading model');
   moonMesh = gltf.scene;
