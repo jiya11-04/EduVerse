@@ -1,434 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>EduVerse - Futuristic College Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00ffff;
-            --bg-dark: #0f0f1a;
-            --bg-light: #f0f0f8;
-            --glass-dark: rgba(255, 255, 255, 0.05);
-            --glass-light: rgba(255, 255, 255, 0.7);
-            --text-light: #fff;
-            --text-dark: #1a1a1a;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduVerse - Futuristic College Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --text-light: #fff;
+      --text-dark: #1a1a1a;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
 
-        body.dark-theme {
-            background: radial-gradient(circle at top left,
-            rgba(37, 89, 222, 1) 0%,
-            rgba(37, 89, 222, 0.8) 30%,
-            rgba(20, 30, 95, 0.8) 60%,
-            rgba(4, 4, 29, 1) 100%);
-            color: var(--text-light);
-        }
+    body.dark-theme {
+      background: radial-gradient(circle at top left,
+        rgba(37, 89, 222, 1) 0%,
+        rgba(37, 89, 222, 0.8) 30%,
+        rgba(20, 30, 95, 0.8) 60%,
+        rgba(4, 4, 29, 1) 100%);
+      color: var(--text-light);
+    }
 
-        body.light-theme {
-            --bg-color: #e6e6e6ab;
-            --card-bg: rgba(255, 255, 255, 0.504);
-            --card-border: rgba(0, 0, 0, 0.1);
-            --card-shadow: rgba(0, 0, 0, 0.15);
-            --text-color: #1f1f1f;
-            --icon-glow: #333333;
-            --nav-bg: #d0d0d0;
-            --nav-text: #000;
-            background: var(--bg-light);
-            color: var(--text-dark);
-        }
+    body.light-theme {
+      --bg-color: #e6e6e6ab;
+      --card-bg: rgba(255, 255, 255, 0.504);
+      --card-border: rgba(0, 0, 0, 0.1);
+      --card-shadow: rgba(0, 0, 0, 0.15);
+      --text-color: #1f1f1f;
+      --icon-glow: #333333;
+      --nav-bg: #d0d0d0;
+      --nav-text: #000;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px 40px;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.05);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 999;
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-        }
+    .logo {
+      font-size: 24px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+    }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-        }
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
 
-        .nav-right i,
-        .theme-toggle i {
-            margin-left: 20px;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--primary);
-        }
+    .nav-right i,
+    .theme-toggle i {
+      margin-left: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--primary);
+    }
 
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-image: url('profile-pic.webp');
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            margin-left: 20px;
-        }
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-image: url('/static/pictures/profile-pic.webp');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      margin-left: 20px;
+    }
 
-        .dashboard {
-            margin-top: 100px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            padding: 40px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .dashboard {
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .futuristic-tile {
-            position: relative;
-            height: 180px;
-            background: var(--glass-dark);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
+    .futuristic-tile {
+      position: relative;
+      height: 180px;
+      background: var(--glass-dark);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
 
-        .tile-icon {
-            font-size: 48px;
-            color: var(--primary);
-            text-shadow: 0 0 8px var(--primary);
-        }
+    .tile-icon {
+      font-size: 48px;
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
 
-        .label {
-            margin-top: 10px;
-            font-size: 16px;
-            text-shadow: 0 0 5px var(--primary);
-        }
+    .label {
+      margin-top: 10px;
+      font-size: 16px;
+      text-shadow: 0 0 5px var(--primary);
+    }
 
-        .icon-wrapper {
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.4s ease;
-        }
+    .icon-wrapper {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.4s ease;
+    }
 
-        .calendar-icon {
-            position: absolute;
-            font-size: 100px;
-            color: rgba(0, 255, 255, 0.1);
-            z-index: 1;
-            opacity: 0;
-            transform: rotate(0deg);
-            transition: opacity 0.5s ease;
-        }
+    .calendar-icon {
+      position: absolute;
+      font-size: 100px;
+      color: rgba(0, 255, 255, 0.1);
+      z-index: 1;
+      opacity: 0;
+      transform: rotate(0deg);
+      transition: opacity 0.5s ease;
+    }
 
-        .active .calendar-icon {
-            opacity: 1;
-            animation: rotateCalendar 2s linear infinite;
-        }
+    .active .calendar-icon {
+      opacity: 1;
+      animation: rotateCalendar 2s linear infinite;
+    }
 
-        .active .icon-wrapper {
-            transform: translateY(-10px) scale(1.1);
-        }
+    .active .icon-wrapper {
+      transform: translateY(-10px) scale(1.1);
+    }
 
-        @keyframes rotateCalendar {
-            0% { transform: rotate(0deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1.2); }
-        }
+    @keyframes rotateCalendar {
+      0% { transform: rotate(0deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1.2); }
+    }
 
-        .chatbot {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary);
-            color: #000;
-            padding: 12px 15px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary);
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 999;
-        }
+    .chatbot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: #000;
+      padding: 12px 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary);
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+    }
 
-        .chatbox {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 300px;
-            background: #1a1a2e;
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 0 10px var(--primary);
-            display: none;
-            flex-direction: column;
-            z-index: 998;
-        }
+    .chatbox {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 300px;
+      background: #1a1a2e;
+      color: white;
+      border-radius: 15px;
+      box-shadow: 0 0 10px var(--primary);
+      display: none;
+      flex-direction: column;
+      z-index: 998;
+    }
 
-        .chatbox-header {
-            background: var(--primary);
-            color: #000;
-            padding: 10px;
-            border-radius: 15px 15px 0 0;
-            font-weight: bold;
-        }
+    .chatbox-header {
+      background: var(--primary);
+      color: #000;
+      padding: 10px;
+      border-radius: 15px 15px 0 0;
+      font-weight: bold;
+    }
 
-        .chatbox-body {
-            padding: 15px;
-            height: 200px;
-            overflow-y: auto;
-        }
+    .chatbox-body {
+      padding: 15px;
+      height: 200px;
+      overflow-y: auto;
+    }
 
-        .chatbox-footer {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #444;
-        }
+    .chatbox-footer {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #444;
+    }
 
-        .chatbox-footer input {
-            flex: 1;
-            padding: 5px;
-            border: none;
-            border-radius: 10px;
-            margin-right: 10px;
-        }
+    .chatbox-footer input {
+      flex: 1;
+      padding: 5px;
+      border: none;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
 
-        .chatbox-footer button {
-            background: var(--primary);
-            border: none;
-            border-radius: 10px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
+    .chatbox-footer button {
+      background: var(--primary);
+      border: none;
+      border-radius: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
 
-        .profile-popup {
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            border-radius: 15px;
-            width: 300px;
-            color: #fff;
-            z-index: 9999;
-            display: none;
-        }
+    .profile-popup {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      border-radius: 15px;
+      width: 300px;
+      color: #fff;
+      z-index: 9999;
+      display: none;
+    }
 
-        .popup-header {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            gap: 15px;
-        }
+    .popup-header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      gap: 15px;
+    }
 
-        .profile-pic {
-            width: 60px;
-            height: 60px;
-            background-image: url('profile-pic.webp');
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            border: 2px solid #00ffff;
-        }
+    .profile-pic {
+      width: 60px;
+      height: 60px;
+      background-image: url('profile-pic.webp');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 2px solid #00ffff;
+    }
 
-        .popup-links {
-            padding: 10px 20px 20px 20px;
-        }
+    .popup-links {
+      padding: 10px 20px 20px 20px;
+    }
 
-        .popup-link {
-            padding: 10px 0;
-            color: #00ffff;
-            cursor: pointer;
-        }
+    .popup-link {
+      padding: 10px 0;
+      color: #00ffff;
+      cursor: pointer;
+    }
 
-        .popup-link.logout {
-            color: #ff6b6b;
-        }
+    .popup-link.logout {
+      color: #ff6b6b;
+    }
 
-        .popup-link:hover {
-            text-shadow: 0 0 8px currentColor;
-        }
+    .popup-link:hover {
+      text-shadow: 0 0 8px currentColor;
+    }
 
-    </style>
+  </style>
 </head>
 <body class="dark-theme">
-    <nav class="navbar">
-        <div class="logo">EduVerse</div>
-        <div class="nav-right">
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-sun"></i>
-            </button>
-            <i class="fas fa-info-circle"></i>
-            <div class="profile-icon" onclick="toggleProfilePopup()"></div>
-        </div>
-    </nav>
-
-    <div class="dashboard">
-        <a href="/static/attendace.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-calendar-alt calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-user-check tile-icon"></i>
-                    <div class="label">Attendance</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/tt.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-clipboard-list calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-table tile-icon"></i>
-                    <div class="label">Timetable</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/NEFT.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-university calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-file-invoice-dollar tile-icon"></i>
-                    <div class="label">NEFT Form</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/examination.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-pencil-alt calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-pen tile-icon"></i>
-                    <div class="label">Examination</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/report.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-chart-bar calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-poll tile-icon"></i>
-                    <div class="label">Report Card</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/query.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-question-circle calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-comment tile-icon"></i>
-                    <div class="label">Query Box</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/main-page.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-hamburger calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-utensils tile-icon"></i>
-                    <div class="label">Food Court</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/cafeteria.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-box-open calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-box tile-icon"></i>
-                    <div class="label">College Essentials</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/societies.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-users calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-people-arrows tile-icon"></i>
-                    <div class="label">Societies</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="/static/medical.html" style="text-decoration: none; color: inherit;">
-            <div class="futuristic-tile" onclick="triggerAnimation(this)">
-                <i class="fas fa-clipboard-list calendar-icon"></i>
-                <div class="icon-wrapper">
-                    <i class="fas fa-notes-medical tile-icon"></i>
-                    <div class="label">Medical</div>
-                </div>
-
-            </div>
-        </a>
-
-
-    <div class="chatbot" onclick="toggleChatbox()">
-        <i class="fas fa-robot"></i>
+  <nav class="navbar">
+    <div class="logo">EduVerse</div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+      </button>
+      <i class="fas fa-info-circle"></i>
+      
+      <a href="/static/profile.html" style="text-decoration: none; color: inherit;">
+      <div class="profile-icon" onclick="toggleProfilePopup()"></div>
+      </a>
     </div>
-    <div class="chatbox" id="chatbox">
-        <div class="chatbox-header">EduBot</div>
-        <div class="chatbox-body" id="chatBody">
-            <p>Hello! How can I help you today? 🤖</p>
-        </div>
-        <div class="chatbox-footer">
-            <input type="text" placeholder="Type here..." />
-            <button>Send</button>
-        </div>
+  </nav>
+
+  <div class="dashboard">
+    <!-- Attendance -->
+    <a href="/static/attendace.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-calendar-alt calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-user-check tile-icon"></i>
+        <div class="label">Attendance</div>
+      </div>
     </div>
-
-
-
-    <div class="profile-popup" id="profilePopup">
-    <div class="popup-header">
-        <div class="profile-pic"></div>
-        <div>
-            <div class="profile-name">XYZ</div>
-            <div class="profile-course">🎓 B Sc Medi Biotech I 2024–25</div>
-            <div class="profile-id">📌 24071040007</div>
-            <div class="profile-school">🏫 School Of Biological And Biomedical Sciences</div>
+    </a>  
+  
+    <!-- Timetable -->
+    <a href="/static/tt.html" style="text-decoration: none; color: inherit;">
+      <div class="futuristic-tile" onclick="triggerAnimation(this)">
+        <i class="fas fa-clipboard-list calendar-icon"></i>
+        <div class="icon-wrapper">
+          <i class="fas fa-table tile-icon"></i>
+          <div class="label">Timetable</div>
         </div>
+      </div>
+    </a>
+
+    <!-- NEFT Form -->  
+    <a href="/static/NEFT.html" style="text-decoration: none; color: inherit;">  
+    <div class="futuristic-tile" onclick="window.location.href='NEFT.html'">
+      <i class="fas fa-university calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-file-invoice-dollar tile-icon"></i>
+        <div class="label">NEFT Form</div>
+      </div>
     </div>
-    <hr />
-    <div class="popup-links">
-        <a href="/static/profile.html" style="text-decoration: none; color: inherit;">
-            <div class="popup-link"><i class="fas fa-user"></i> Profile</div>
-        </a>
-        <div class="popup-link"><i class="fas fa-key"></i> Reset
+    </a>
+
+    <!-- Examination -->
+    <a href="/static/examination.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-pencil-alt calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-pen tile-icon"></i>
+        <div class="label">Examination</div>
+      </div>
+    </div>
+    </a>
+    <!-- Report Card -->
+    <a href="/static/report.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-chart-bar calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-poll tile-icon"></i>
+        <div class="label">Report Card</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- Query Box -->
+    <a href="/static/query.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-question-circle calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-comment tile-icon"></i>
+        <div class="label">Query Box</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- Food Court -->
+    <a href="/static/main-page.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-hamburger calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-utensils tile-icon"></i>
+        <div class="label">Food Court</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- College Essentials -->
+     
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-box-open calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-box tile-icon"></i>
+        <div class="label">College Essentials</div>
+      </div>
+    </div>
+  
+    <!-- Societies -->
+    <a href="/static/societies.html" style="text-decoration: none; color: inherit;">
+    <div class="futuristic-tile" onclick="triggerAnimation(this)">
+      <i class="fas fa-users calendar-icon"></i>
+      <div class="icon-wrapper">
+        <i class="fas fa-people-arrows tile-icon"></i>
+        <div class="label">Societies</div>
+      </div>
+    </div>
+    </a>
+  
+    <!-- Tile: Medical -->
+    <a href="/static/medical.html" style="text-decoration: none; color: inherit;">
+      <div class="futuristic-tile" onclick="triggerAnimation(this)">
+        <i class="fas fa-clipboard-list calendar-icon"></i>
+        <div class="icon-wrapper">
+          <i class="fas fa-notes-medical tile-icon"></i>
+          <div class="label">Medical</div>
+        </div>
+        
+      </div>
+    </a>
+  
+
+  <!-- Floating Chatbot -->
+  <div class="chatbot" onclick="toggleChatbox()">
+   
+  </div>
+  <div class="chatbox" id="chatbox">
+    <div class="chatbox-header">EduBot</div>
+    <div class="chatbox-body" id="chatBody">
+      <p>Hello! How can I help you today? 🤖</p>
+    </div>
+    <div class="chatbox-footer">
+      <input type="text" placeholder="Type here..." />
+      <button>Send</button>
+    </div>
+  </div>
+
+  
+
+  <!-- Profile Popup
+  <a href="profile.html" style="text-decoration: none; color: inherit;">
+<div class="profile-popup" id="profilePopup">
+  <div class="popup-header">
+    <div class="profile-pic"></div>
+    <div>
+      <div class="profile-name">XYZ</div>
+      <div class="profile-course">🎓 B Sc Medi Biotech I 2024–25</div>
+      <div class="profile-id">📌 24071040007</div>
+      <div class="profile-school">🏫 School Of Biological And Biomedical Sciences</div>
+    </div>
+  </div>
+</a> -->
+  <hr />
+ 
+  </div>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.contains("dark-theme");
+      body.classList.remove("dark-theme", "light-theme");
+      body.classList.add(isDark ? "light-theme" : "dark-theme");
+      localStorage.setItem("eduverse-theme", isDark ? "light-theme" : "dark-theme");
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("eduverse-theme");
+      if (saved) {
+        document.body.classList.remove("dark-theme", "light-theme");
+        document.body.classList.add(saved);
+      }
+    });
+
+    function triggerAnimation(container) {
+      container.classList.toggle("active");
+    }
+
+    // Profile Popout
+    function toggleProfilePopup() {
+      const popup = document.getElementById("profilePopup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (e) {
+      const popup = document.getElementById("profilePopup");
+      const profileIcon = document.querySelector(".profile-icon");
+      if (!popup.contains(e.target) && !profileIcon.contains(e.target)) {
+        popup.style.display = "none";
+      }
+    });
+
+    // Chatbot
+    function toggleChatbox() {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.style.display = chatbox.style.display === "flex" ? "none" : "flex";
+    }
+
+    function handleQuickReply(text) {
+  const chatBody = document.getElementById('chatBody');
+  const response = getBotResponse(text);
+
+  chatBody.innerHTML += <p><strong>You:</strong> ${text}</p>;
+  chatBody.innerHTML += <p><strong>EduBot:</strong> ${response}</p>;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function getBotResponse(query) {
+  switch (query.toLowerCase()) {
+    case "attendance":
+      return "You can view your attendance under the 'Attendance' section.";
+    case "timetable":
+      return "Your class timetable is available under the 'Timetable' tile.";
+    case "neft form":
+    case "neft":
+      return "NEFT form submissions can be done under the 'NEFT Form' tile.";
+    case "upload medical":
+    case "medical":
+      return "You can upload medical documents under the 'Upload Medical' section.";
+    default:
+      return "I'm not sure how to help with that yet 🤖";
+  }
+}
+
+  // Theme Toggle
+  function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.contains("dark-theme");
+    body.classList.remove("dark-theme", "light-theme");
+    body.classList.add(isDark ? "light-theme" : "dark-theme");
+    localStorage.setItem("eduverse-theme", isDark ? "light-theme" : "dark-theme");
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("eduverse-theme");
+    if (saved) {
+      document.body.classList.remove("dark-theme", "light-theme");
+      document.body.classList.add(saved);
+    }
+  });
+
+  function triggerAnimation(container) {
+    container.classList.toggle("active");
+    setTimeout(() => container.classList.remove("active"), 1000); // Auto-remove animation class
+  }
+
+  // Profile Popout
+  function toggleProfilePopup() {
+    const popup = document.getElementById("profilePopup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+
+  // Chatbot Toggle
+  function toggleChatbox() {
+    const box = document.getElementById("chatbox");
+    box.style.display = box.style.display === "flex" ? "none" : "flex";
+  }
+
+
+
+  </script>
+  <script src="https://cdn.botpress.cloud/webchat/v2.3/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/04/17/06/20250417062734-4MISVCPA.js"></script>
+</body>
+</html>
