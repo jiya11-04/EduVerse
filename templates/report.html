@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Card | EduVerse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00ffff;
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f0f8;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.1);
+      --text-light: #ffffff;
+      --text-dark: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(37, 89, 222, 1) 0%, rgba(37, 89, 222, 0.8) 30%, rgba(20, 30, 95, 0.8) 60%, rgba(4, 4, 29, 1) 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text-light);
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    select {
+      background-color: white;
+      border: 1px solid var(--primary);
+      padding: 10px;
+      font-size: 16px;
+      color: black;
+      backdrop-filter: blur(6px);
+      margin: 20px auto;
+      display: block;
+      border-radius: 8px;
+      width: 220px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background-color: var(--glass-light);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+    }
+
+    th, td {
+      border: 1px solid var(--primary);
+      padding: 12px;
+      text-align: center;
+      color: white;
+    }
+
+    th {
+      background-color: rgba(0, 255, 255, 0.1);
+      color: var(--primary);
+    }
+
+    .summary {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Academic Report Card</h1>
+
+  <select id="semesterSelector" onchange="displaySemesterData()">
+    <option value="" disabled selected>Select Semester</option>
+    <option value="sem1">Semester 1</option>
+    <option value="sem2">Semester 2</option>
+    <option value="sem3">Semester 3</option>
+  </select>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Code</th>
+        <th>Mid Theory</th>
+        <th>Mid Practical</th>
+        <th>End Theory</th>
+        <th>End Practical</th>
+        <th>Total </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in results %}
+      <tr>
+        <td>{{ row[0] }}</td>  <!-- Subject -->
+        <td>{{ row[1] }}</td>  <!-- Code -->
+        <td>{{ row[2] }}</td>  <!-- MidTheory -->
+        <td>{{ row[3] }}</td>  <!-- MidPractical -->
+        <td>{{ row[4] }}</td>  <!-- EndTheory -->
+        <td>{{ row[5] }}</td>  <!-- EndPractical -->
+        <td>{{ row[2] + row[3] + row[4] + row[5] }}</td> <!-- Total for this subject -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="summary">
+    Overall Grade: <strong>{{ grade }}</strong>
+  </div>
+
+</body>
+</html>

@@ -247,15 +247,13 @@
     <button onclick="clearCart()">Clear</button>
   
     <form id="checkoutForm" style="display:none" onsubmit="placeOrder(event)">
-      <input type="text" placeholder="Name" required id="custName" />
-      <input type="text" placeholder="Contact" required id="custContact" />
+      
       
       <label for="payment">Payment Method</label>
       <select id="payment" required>
         <option value="">Select Payment Method</option>
         <option value="UPI">UPI</option>
         <option value="Credit/Debit Card">Credit/Debit Card</option>
-        <option value="Cash">Cash</option>
       </select>
   
       <button type="submit">Place Order</button>

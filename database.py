@@ -101,5 +101,41 @@ def add_query():
 
     return render_template('query.html', queries=queries)
 
+@app.route('/report.html')
+def report():
+    if 'student_id' not in session:
+        return redirect('/')
+
+    student_id = session['student_id']
+    sql = "SELECT Subject, Code, MidTheory, MidPractical, EndTheory, EndPractical FROM result WHERE id = %s"
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(sql, (student_id,))
+    results = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    total_marks = 0
+    for result in results:
+        total_marks += result[2] + result[3] + result[4] + result[5]
+
+    grade = calculate_grade(total_marks)
+
+    return render_template('report.html', results=results, grade=grade)
+
+def calculate_grade(total_marks):
+    if total_marks >= 180:
+        return 'A+'
+    elif total_marks >= 160:
+        return 'A'
+    elif total_marks >= 140:
+        return 'B+'
+    elif total_marks >= 120:
+        return 'B'
+    elif total_marks >= 100:
+        return 'C'
+    else:
+        return 'F'
+
 if __name__ == '__main__':
     app.run(debug=True)
