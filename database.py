@@ -208,5 +208,57 @@ def profile_img():
 
     return render_template('profile.html', image_data=image_data)
 
+@app.route('/foodcourt/asian.html', methods=['POST', 'GET'])
+def foodorders():
+    if 'student_id' not in session:
+        return redirect('/')
+
+    student_id = session['student_id']
+    conn = None
+    cursor = None
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        if request.method == 'POST':
+            # Get data from the form
+            dish_name = request.form['item']
+            quantity = int(request.form['quantity'])
+            pickup_time = request.form['pickup']
+            customer_name = request.form['name']
+            contact_number = request.form['contact']
+
+            # Print the data to debug
+            print(f"Data received: student_id={student_id}, dish_name={dish_name}, quantity={quantity}, pickup_time={pickup_time}, customer_name={customer_name}, contact_number={contact_number}")
+
+            # SQL query to insert data into the Orders table
+            sql = """
+                INSERT INTO Orders (id, dish_name, quantity, pickup_time, customer_name, contact_number)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            # Execute the query with the form data
+            cursor.execute(sql, (student_id, dish_name, quantity, pickup_time, customer_name, contact_number))
+            conn.commit()
+            print("Order placed successfully!")
+
+        else:
+            print("Received a GET request (form not submitted).")  # Added to debug
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        print(f"SQL query: {sql}")  # prints the sql query
+        print(f"Parameters: {(student_id, dish_name, quantity, pickup_time, customer_name, contact_number)}")  # prints the parameters
+        # conn.rollback() # uncomment this if you want to rollback
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+
+    return render_template('/foodcourt/asian.html')
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
