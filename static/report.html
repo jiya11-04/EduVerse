@@ -32,11 +32,11 @@
     }
 
     select {
-      background-color:white;
+      background-color: white;
       border: 1px solid var(--primary);
       padding: 10px;
       font-size: 16px;
-      color:black;
+      color: black;
       backdrop-filter: blur(6px);
       margin: 20px auto;
       display: block;
@@ -58,7 +58,7 @@
 
     th, td {
       border: 1px solid var(--primary);
-      padding: 15px;
+      padding: 12px;
       text-align: center;
       color: white;
     }
@@ -93,21 +93,33 @@
   <script>
     const reportData = {
       sem1: [
-        { subject: "Mathematics I", grade: "A", marks: 85 },
-        { subject: "Physics", grade: "A+", marks: 92 },
-        { subject: "C Programming", grade: "B+", marks: 78 }
+        { subject: "Mathematics I", code: "MATH101", midTheory: 18, midPractical: 0, endTheory: 62, endPractical: 0, grade: "A", credits: 4 },
+        { subject: "Physics", code: "PHY101", midTheory: 20, midPractical: 10, endTheory: 58, endPractical: 4, grade: "A+", credits: 4 },
+        { subject: "C Programming", code: "CSE101", midTheory: 17, midPractical: 12, endTheory: 45, endPractical: 4, grade: "B+", credits: 3 }
       ],
       sem2: [
-        { subject: "Data Structures", grade: "A", marks: 88 },
-        { subject: "Digital Logic", grade: "A", marks: 86 },
-        { subject: "Discrete Maths", grade: "B", marks: 75 }
+        { subject: "Data Structures", code: "CSE201", midTheory: 19, midPractical: 10, endTheory: 55, endPractical: 4, grade: "A", credits: 4 },
+        { subject: "Digital Logic", code: "ECE201", midTheory: 18, midPractical: 8, endTheory: 56, endPractical: 4, grade: "A", credits: 4 },
+        { subject: "Discrete Maths", code: "MATH201", midTheory: 15, midPractical: 0, endTheory: 55, endPractical: 0, grade: "B", credits: 3 }
       ],
       sem3: [
-        { subject: "OS", grade: "A", marks: 89 },
-        { subject: "AI", grade: "A+", marks: 93 },
-        { subject: "Cyber Security", grade: "A", marks: 87 }
+        { subject: "Operating Systems", code: "CSE301", midTheory: 20, midPractical: 10, endTheory: 55, endPractical: 4, grade: "A", credits: 4 },
+        { subject: "Artificial Intelligence", code: "CSE302", midTheory: 19, midPractical: 10, endTheory: 60, endPractical: 4, grade: "A+", credits: 4 },
+        { subject: "Cyber Security", code: "CSE303", midTheory: 18, midPractical: 8, endTheory: 57, endPractical: 4, grade: "A", credits: 3 }
       ]
     };
+
+    const gradePoints = {
+      "A+": 10,
+      "A": 9,
+      "B+": 8,
+      "B": 7,
+      "C": 6,
+      "D": 5,
+      "F": 0
+    };
+
+    const sgpaHistory = {}; // stores calculated SGPAs for CGPA calculation
 
     function displaySemesterData() {
       const semester = document.getElementById("semesterSelector").value;
@@ -116,31 +128,66 @@
       const data = reportData[semester];
       if (!data) return;
 
-      let totalMarks = 0;
+      let totalMarksSum = 0;
+      let totalCredits = 0;
+      let weightedGradePoints = 0;
+
       let table = `
         <table>
           <tr>
             <th>Subject</th>
+            <th>Code</th>
+            <th>Mid Term Theory</th>
+            <th>Mid Term Practical</th>
+            <th>End Sem Theory</th>
+            <th>End Sem Practical</th>
+            <th>Total Marks (100)</th>
             <th>Grade</th>
-            <th>Marks</th>
+            <th>Credits</th>
           </tr>
       `;
 
       data.forEach(item => {
+        const total = item.midTheory + item.midPractical + item.endTheory + item.endPractical;
+        totalMarksSum += total;
+        totalCredits += item.credits;
+        weightedGradePoints += gradePoints[item.grade] * item.credits;
+
         table += `
           <tr>
             <td>${item.subject}</td>
+            <td>${item.code}</td>
+            <td>${item.midTheory}</td>
+            <td>${item.midPractical}</td>
+            <td>${item.endTheory}</td>
+            <td>${item.endPractical}</td>
+            <td>${total}</td>
             <td>${item.grade}</td>
-            <td>${item.marks}</td>
+            <td>${item.credits}</td>
           </tr>
         `;
-        totalMarks += item.marks;
       });
 
-      const avg = (totalMarks / data.length).toFixed(2);
+      const avgPercentage = (totalMarksSum / (data.length * 100) * 100).toFixed(2);
+      const sgpa = (weightedGradePoints / totalCredits).toFixed(2);
+
+      // Save SGPA for CGPA calculation
+      sgpaHistory[semester] = parseFloat(sgpa);
+
+      // Calculate CGPA based on all previous SGPAs
+      let totalSgpa = 0;
+      let semestersCounted = 0;
+      for (let key in sgpaHistory) {
+        totalSgpa += sgpaHistory[key];
+        semestersCounted++;
+      }
+      const cgpa = (totalSgpa / semestersCounted).toFixed(2);
+
       table += `</table>
         <div class="summary">
-          Overall Percentage: <strong>${avg}%</strong>
+          Overall Percentage: <strong>${avgPercentage}%</strong><br>
+          SGPA: <strong>${sgpa}</strong><br>
+          CGPA: <strong>${cgpa}</strong>
         </div>
       `;
 
