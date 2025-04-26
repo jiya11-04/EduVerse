@@ -1,8 +1,16 @@
 from flask import Flask, render_template, request, redirect, session
 import mysql.connector
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Important for session management
+
+# Configure the upload folder for profile pictures
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Ensure the upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # MySQL connection
 def get_db_connection():
@@ -13,14 +21,43 @@ def get_db_connection():
         database="eduverse"
     )
 
+def get_profile_image_data(student_id):
+    conn = None
+    cursor = None
+    image_data = None  # Initialize to None
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = "SELECT name, picture_path FROM my_images WHERE id = %s"
+        cursor.execute(sql, (student_id,))
+        result = cursor.fetchone()  # Fetch only one row
+
+        if result:
+            image_data = {'name': result[0], 'path': result[1]}  # Use meaningful keys
+            print("imagepath is:", image_data['path'])
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+
+    return image_data
+
 @app.route('/', methods=['GET'])
 def index():
-    """Renders the login form as the homepage."""
-    return render_template('login2.html')
+    if 'student_id' not in session:
+        return redirect('/login')  # Redirect to the login page
+    else:
+        student_id = session['student_id']
+        image_data = get_profile_image_data(student_id)
+        return render_template('index.html', image_data=image_data)
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Handles the login form submission and verifies credentials."""
+    """Handles both displaying the login form (GET) and processing login (POST)."""
     if request.method == 'POST':
         student_id = request.form['student-id']
         password = request.form['password']
@@ -54,15 +91,18 @@ def login():
             if conn and conn.is_connected():
                 conn.close()
 
-    return render_template('login2.html')
+    elif request.method == 'GET':
+        return render_template('login2.html')  # Serve the login form
 
 @app.route('/index.html')
 def serve_index():
     """Renders the index page."""
     if 'student_id' in session:
-        return render_template('index.html')
+        student_id = session['student_id']
+        image_data = get_profile_image_data(student_id)  # Fetch image data
+        return render_template('index.html', image_data=image_data)  # Pass image_data
     else:
-        return redirect('/')  # Redirect to login if not logged in
+        return redirect('/login')  # Redirect to login if not logged in
 
 @app.route('/query.html', methods=['GET', 'POST'])
 def add_query():
@@ -136,6 +176,37 @@ def calculate_grade(total_marks):
         return 'C'
     else:
         return 'F'
+
+@app.route('/profile.html')
+def profile_img():
+    if 'student_id' not in session:
+        return redirect('/')
+
+    student_id = session['student_id']
+    conn = None
+    cursor = None
+    image_data = None  # Initialize to None
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = "SELECT name, picture_path FROM my_images WHERE id = %s"
+        cursor.execute(sql, (student_id,))
+        result = cursor.fetchone()  # Fetch only one row
+
+        if result:
+            image_data = {'name': result[0], 'path': result[1]}  # Use meaningful keys
+            print("imagepath is :",image_data['path'])
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        # Handle the error appropriately
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+
+    return render_template('profile.html', image_data=image_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

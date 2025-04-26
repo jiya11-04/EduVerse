@@ -35,12 +35,13 @@
 </head>
 
 <body class="min-h-screen">
+
   <div class="max-w-6xl mx-auto p-6">
     <header class="flex justify-between items-center mb-6">
       <h1 class="text-4xl font-semibold text-cyan-300">EduVerse</h1>
       <div class="flex items-center gap-4">
-        <span class="text-lg">John Doe</span>
-        <img src="/static/pictures/profile-pic.webp" class="rounded-full w-12 h-12 border-2 border-cyan-300" alt="Profile" />
+        <span class="text-lg">{{image_data.name}}</span>
+        <img src="{{image_data.path}}" class="rounded-full w-12 h-12 border-2 border-cyan-300" alt="Profile" />
       </div>
     </header>
 
@@ -48,8 +49,8 @@
       <!-- Sidebar -->
       <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 col-span-1">
         <div class="flex flex-col items-center">
-          <img src="/static/pictures/profile-pic.webp" class="rounded-full border-4 border-cyan-300" alt="Student" />
-          <h2 class="text-xl mt-4">John Doe</h2>
+          <img src="{{image_data.path}}" class="rounded-full border-4 border-cyan-300" alt="Student" />
+          <h2 class="text-xl mt-4">{{image_data.name}}</h2>
           <p class="text-sm text-cyan-200">B.Tech CSE | 2024–25</p>
           <div class="bg-cyan-900 text-center text-white rounded-lg px-4 py-2 my-3 text-sm">
             24071040007

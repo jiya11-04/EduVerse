@@ -91,7 +91,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-image: url('/static/pictures/profile-pic.webp');
+      background-image: url('{{image_data.path}}');
       background-size: cover;
       background-position: center;
       cursor: pointer;
@@ -294,7 +294,7 @@
       </button>
       <i class="fas fa-info-circle"></i>
       
-      <a href="/static/profile.html" style="text-decoration: none; color: inherit;">
+      <a href="/profile.html" style="text-decoration: none; color: inherit;">
       <div class="profile-icon" onclick="toggleProfilePopup()"></div>
       </a>
     </div>
