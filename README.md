@@ -1,3 +1,5 @@
+# EduVerse - Revolutionizing Campus Life 🎓
+
 Campus Life, Reimagined for the Future.
 Project Name: EduVerse
 Team Name: CodeX
