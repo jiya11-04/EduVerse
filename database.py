@@ -8,9 +8,6 @@ import base64
 from io import BytesIO
 
 
-
-
-
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Important for session management
 
@@ -294,7 +291,45 @@ def foodorders():
 
     return render_template('/foodcourt/asian.html', qr_code_base64=qr_code_base64)
 
+@app.route('/attendace.html')
+def attendance():
+    if 'student_id' not in session:
+        return redirect('/')
 
+    student_id = session['student_id']
+    conn = None
+    cursor = None
+    qr_code_base64 = None
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        data = "https://jiya11-04.github.io/Face-recognisation/"
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(data)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white")
+
+        # Save QR image to a BytesIO object
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        buffer.seek(0)
+        qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+        return render_template('/attendace.html', qr_code_base64=qr_code_base64)
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
 
 
 if __name__ == '__main__':
