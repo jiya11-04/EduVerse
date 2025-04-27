@@ -4,6 +4,8 @@ import os
 import qrcode
 from PIL import Image
 from IPython.display import display
+import base64
+from io import BytesIO
 
 
 
@@ -215,6 +217,9 @@ def profile_img():
 
     return render_template('profile.html', image_data=image_data)
 
+import base64
+from io import BytesIO
+
 @app.route('/foodcourt/asian.html', methods=['POST', 'GET'])
 def foodorders():
     if 'student_id' not in session:
@@ -223,19 +228,20 @@ def foodorders():
     student_id = session['student_id']
     conn = None
     cursor = None
+    qr_code_base64 = None
 
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
 
         if request.method == 'POST':
-            # Get data from the form
+            # Get form data
             dish_name = request.form['item']
             quantity = int(request.form['quantity'])
             pickup_time = request.form['pickup']
             customer_name = request.form['name']
             contact_number = request.form['contact']
-            
+
             price = 0
             if "Hakka Noodles" in dish_name:
                 price = 100
@@ -245,52 +251,52 @@ def foodorders():
                 price = 110
 
             total_cost = price * quantity
-            
-            data = "https://www.example.com"
 
-# Generate QR code
+            data = (
+                f"Order Details:\nDish Name: {dish_name}\nQuantity: {quantity}\n"
+                f"Pickup Time: {pickup_time}\nCustomer Name: {customer_name}\n"
+                f"Contact Number: {contact_number}\nTotal Cost: {total_cost}"
+            )
+
+            # Generate QR code in memory
             qr = qrcode.QRCode(
-            version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_H,
-    box_size=10,
-    border=4,
-)
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_H,
+                box_size=10,
+                border=4,
+            )
             qr.add_data(data)
             qr.make(fit=True)
-
-# Create image
             img = qr.make_image(fill_color="black", back_color="white")
 
-# Display the image in Colabdisplay(img)
+            # Save QR image to a BytesIO object
+            buffer = BytesIO()
+            img.save(buffer, format="PNG")
+            buffer.seek(0)
+            qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
 
-            # Print the data to debug
-            print(f"Data received: student_id={student_id}, dish_name={dish_name}, quantity={quantity}, pickup_time={pickup_time}, customer_name={customer_name}, contact_number={contact_number}")
-
-            # SQL query to insert data into the Orders table
+            # Save the order into the database
             sql = """
-                INSERT INTO Orders (id, dish_name, quantity, pickup_time, customer_name, contact_number,totalprice)
-                VALUES (%s, %s, %s, %s, %s, %s,%s)
+                INSERT INTO Orders (id, dish_name, quantity, pickup_time, customer_name, contact_number, totalprice)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            # Execute the query with the form data
-            cursor.execute(sql, (student_id, dish_name, quantity, pickup_time, customer_name, contact_number,total_cost))
+            cursor.execute(sql, (student_id, dish_name, quantity, pickup_time, customer_name, contact_number, total_cost))
             conn.commit()
             print("Order placed successfully!")
 
         else:
-            print("Received a GET request (form not submitted).")  # Added to debug
+            print("Received a GET request (form not submitted).")
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        print(f"SQL query: {sql}")  # prints the sql query
-        print(f"Parameters: {(student_id, dish_name, quantity, pickup_time, customer_name, contact_number)}")  # prints the parameters
-        # conn.rollback() # uncomment this if you want to rollback
     finally:
         if cursor:
             cursor.close()
         if conn and conn.is_connected():
             conn.close()
 
-    return render_template('/foodcourt/asian.html')
+    return render_template('/foodcourt/asian.html', qr_code_base64=qr_code_base64)
+
 
 
 

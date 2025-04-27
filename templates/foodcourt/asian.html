@@ -194,6 +194,16 @@
 
     <h1>🍜 Asian Delights</h1>
     <h2>Spice & Wok Magic</h2>
+    <div style="text-align: center;">
+        {% if qr_code_base64 %}
+            <h3>Your QR Code:</h3>
+            <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" style="width: 200px; height: 200px;">
+        {% endif %}
+    </div>
+    
+
+   
+   
 
     <div class="menu">
         <div class="item"><img src="https://i2.wp.com/vegecravings.com/wp-content/uploads/2017/03/veg-hakka-noodles-recipe-with-step-by-step-instructions.jpg?fit=1838%2C1493&quality=65&strip=all&ssl=1" alt="Hakka Noodles"/><div><h3>Hakka Noodles</h3><p>Stir-fried noodles with veggies and sauces</p><strong>₹100</strong></div></div>
