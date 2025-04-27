@@ -252,11 +252,8 @@ def foodorders():
 
             total_cost = price * quantity
 
-            data = (
-                f"Order Details:\nDish Name: {dish_name}\nQuantity: {quantity}\n"
-                f"Pickup Time: {pickup_time}\nCustomer Name: {customer_name}\n"
-                f"Contact Number: {contact_number}\nTotal Cost: {total_cost}"
-            )
+            data = f"upi://pay?pa=8800626147@ibl&pn=MohitTiwari&am={total_cost}&cu=INR"
+
 
             # Generate QR code in memory
             qr = qrcode.QRCode(
