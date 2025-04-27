@@ -54,7 +54,8 @@ Say goodbye to paper trails, long queues, confusion, and chaos — EduVerse empo
 - Prototype Link: Coming Soon
 - GitHub Repository: [EduVerse GitHub Repository](https://github.com/jiya11-04/EduVerse)
 
-- Demo Video: Coming Soon
+- Demo Video: [EduVerse Demo Video](https://youtu.be/yHdlNHNGhgI)
+
 
 ## 💡 Future Roadmap
 
